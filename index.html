@@ -1,0 +1,1687 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Goodreads Unofficial Api</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;php&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="images/logo.png" class="logo" alt="Logo" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="php">php</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+          </li>
+          <li>
+            <a href="#query-parameters" class="toc-h1 toc-link" data-title="Query Parameters">Query Parameters</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#extra" class="toc-h2 toc-link" data-title="Extra">Extra</a>
+                  </li>
+                  <li>
+                    <a href="#item-title" class="toc-h2 toc-link" data-title="Item (title)">Item (title)</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#properties" class="toc-h3 toc-link" data-title="Properties">Properties</a>
+                          </li>
+                          <li>
+                            <a href="#relations" class="toc-h3 toc-link" data-title="Relations">Relations</a>
+                          </li>
+                          <li>
+                            <a href="#methods" class="toc-h3 toc-link" data-title="Methods">Methods</a>
+                          </li>
+                          <li>
+                            <a href="#full-example-title" class="toc-h3 toc-link" data-title="Full Example (title)">Full Example (title)</a>
+                          </li>
+                      </ul>
+                  </li>
+                  <li>
+                    <a href="#item-person" class="toc-h2 toc-link" data-title="Item (person)">Item (person)</a>
+                      <ul class="toc-list-h3">
+                          <li>
+                            <a href="#properties-2" class="toc-h3 toc-link" data-title="Properties">Properties</a>
+                          </li>
+                          <li>
+                            <a href="#methods-2" class="toc-h3 toc-link" data-title="Methods">Methods</a>
+                          </li>
+                          <li>
+                            <a href="#full-example-person" class="toc-h3 toc-link" data-title="Full Example (person)">Full Example (person)</a>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='introduction'>Introduction</h1>
+<p>Welcome to the Imdb Unofficial API! You can use our API to access Imdb content.
+In examples we are using Symfony component called <a href="https://symfony.com/doc/current/components/http_client.html">The HttpClient Component</a>.</p>
+<h1 id='authentication'>Authentication</h1>
+<blockquote>
+<p>Pass your API-key in all API requests as a header. To authorize, use this code:</p>
+
+<p>Request:</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$api_key</span> <span class="o">=</span> <span class="nx">YOURAPIKEY</span><span class="p">;</span>
+<span class="nv">$query_parameters</span> <span class="o">=</span> <span class="nx">QUERYPARAMETERS</span><span class="p">;</span>
+
+<span class="nv">$httpClient</span> <span class="o">=</span> <span class="nx">HttpClient</span><span class="o">::</span><span class="na">create</span><span class="p">([</span>
+<span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'X-AUTH-API'</span> <span class="o">=&gt;</span> <span class="nv">$api_key</span><span class="p">],</span>
+<span class="p">]);</span>
+
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$httpClient</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span> <span class="s1">'https://admin.bunny-holding.com/api'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'query'</span> <span class="o">=&gt;</span> <span class="nv">$query_parameters</span><span class="p">,]);</span>
+
+<span class="cp">?&gt;</span>
+</code></pre>
+<blockquote>
+<p>Make sure to replace <code>YOURAPIKEY</code> with your API key and replace <code>QUERYPARAMETERS</code> with parameters as it is defined in API.</p>
+</blockquote>
+
+<p>Each project has different API key. Before making any request with your api key please be sure you configured allowed titles in <a href="https://admin.bunny-holding.com">admin</a>.</p>
+
+<p>To make any request use api url: <code>https://admin.bunny-holding.com/api</code> and send us <code>GET</code> request.</p>
+
+<aside class="notice">
+    You must replace <code>YOURAPIKEY</code> with your API key from your project in [admin](https://admin.bunny-holding.com).
+</aside>
+<h1 id='query-parameters'>Query Parameters</h1>
+<p>Query parameters are used to generated specific response. You can combine it in any way you want. Every response is JSON formated.</p>
+<h2 id='extra'>Extra</h2>
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$query_parameters</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'extra'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'popularTitles'</span><span class="p">,</span> <span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">'properties'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'imageSrc'</span><span class="p">]],</span>
+        <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'latestTitles'</span><span class="p">,</span> <span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">],</span> <span class="s1">'properties'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'imageSrc'</span><span class="p">]],</span>
+        <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'latestEpisodes'</span><span class="p">,</span> <span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">'properties'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'episodeParent'</span><span class="p">]],</span>
+    <span class="p">],</span>
+<span class="p">];</span>
+
+<span class="cp">?&gt;</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"extra"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"popularTitles"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">587</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Entertainers with Byron Allen"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"entertainers-with-byron-allen"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://m.media-amazon.com/images/M/MV5BMWFlM2IwNmItZjRhMS00NDk2LTlhNzgtZjczNDFlN2MzYzEzXkEyXkFqcGdeQXVyMzk3NDAxMzk@._V1_UY268_CR12,0,182,268_AL_.jpg"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"latestTitles"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4871906</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ilox"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ilox"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4866166</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Shangoul &amp; Mangoul"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shangoul-mangoul"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"latestEpisodes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4894909</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 25 May 2005"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-25-may-2005"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"episodeParent"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1066875</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"El mundo en 24 horas"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"el-mundo-en-24-horas"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p>Required: false
+    <table class="table table-responsive">
+        <tr>
+            <th>Function</th>
+            <th>Parameters</th>
+            <th>Properties</th>
+            <th>Description</th>
+        </tr>
+                    <tr>
+                <td>popularTitles</td>
+                <td>
+                                                                            <div><span><strong>Name:</strong> </span>limit</div>
+    <div><span><strong>Required:</strong> </span> yes </div>
+    <div><span><strong>Type:</strong> </span>int</div>
+    <div><span><strong>Max value:</strong> </span>15</div></p>
+
+<p></td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, name, slug, imageSrc</div>
+    <div><span><strong>Valid Options:</strong> </span>id, name, description, imageSrc, season, episode, duration, contentRating, metascore, locations, keywords, awards, rating, releasedYear, releasedMonth, releasedDay, episodeParent, slug, category</div></p>
+
+<p></td>
+                <td>
+                    list of popular titles
+                </td>
+            </tr>
+                    <tr>
+                <td>latestTitles</td>
+                <td>
+                                                                            <div><span><strong>Name:</strong> </span>limit</div>
+    <div><span><strong>Required:</strong> </span> yes </div>
+    <div><span><strong>Type:</strong> </span>int</div>
+    <div><span><strong>Max value:</strong> </span>15</div></p>
+
+<p></td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, name, slug, imageSrc</div>
+    <div><span><strong>Valid Options:</strong> </span>id, name, description, imageSrc, season, episode, duration, contentRating, metascore, locations, keywords, awards, rating, releasedYear, releasedMonth, releasedDay, episodeParent, slug, category</div></p>
+
+<p></td>
+                <td>
+                    list of latest titles
+                </td>
+            </tr>
+                    <tr>
+                <td>latestEpisodes</td>
+                <td>
+                                                                            <div><span><strong>Name:</strong> </span>limit</div>
+    <div><span><strong>Required:</strong> </span> yes </div>
+    <div><span><strong>Type:</strong> </span>int</div>
+    <div><span><strong>Max value:</strong> </span>15</div></p>
+
+<p></td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, name, slug, imageSrc</div>
+    <div><span><strong>Valid Options:</strong> </span>id, name, description, imageSrc, season, episode, duration, contentRating, metascore, locations, keywords, awards, rating, releasedYear, releasedMonth, releasedDay, episodeParent, slug, category</div></p>
+
+<p></td>
+                <td>
+                    list of latest episodes
+                </td>
+            </tr>
+            </table></p>
+<h2 id='item-title'>Item (title)</h2>
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$query_parameters</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'item'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'id'</span> <span class="o">=&gt;</span> <span class="mi">587</span><span class="p">,</span>
+        <span class="s1">'entity'</span> <span class="o">=&gt;</span> <span class="s1">'Title'</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">];</span>
+
+<span class="cp">?&gt;</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"item"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">587</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Entertainers with Byron Allen"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"entertainers-with-byron-allen"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://m.media-amazon.com/images/M/MV5BMWFlM2IwNmItZjRhMS00NDk2LTlhNzgtZjczNDFlN2MzYzEzXkEyXkFqcGdeQXVyMzk3NDAxMzk@._V1_UY268_CR12,0,182,268_AL_.jpg"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p>Required: false</p>
+
+<p><table class="table table-responsive">
+        <tr>
+            <th>Parameter</th>
+            <th>Required</th>
+            <th>Allowed Values</th>
+            <th>Format</th>
+            <th>Description</th>
+        </tr>
+                    <tr>
+                <td>entity</td>
+                <td>                        yes
+                                    </td>
+                <td>
+                                            Title
+                                    </td>
+                <td>
+                    string
+                </td>
+                <td>static text, identify collection</td>
+            </tr>
+                    <tr>
+                <td>id</td>
+                <td>                        yes
+                                    </td>
+                <td>
+                                                        </td>
+                <td>
+                    integer
+                </td>
+                <td>the ID of major title</td>
+            </tr>
+                    <tr>
+                <td>properties</td>
+                <td>                        no
+                                    </td>
+                <td>
+                                                                        <a href="#properties">properties</a>
+                                                            </td>
+                <td>
+                    array
+                </td>
+                <td>array of properties</td>
+            </tr>
+                    <tr>
+                <td>relations</td>
+                <td>                        no
+                                    </td>
+                <td>
+                                                                        <a href="#relations">relations</a>
+                                                            </td>
+                <td>
+                    array
+                </td>
+                <td>array of relations</td>
+            </tr>
+                    <tr>
+                <td>methods</td>
+                <td>                        no
+                                    </td>
+                <td>
+                                                                        <a href="#methods">methods</a>
+                                                            </td>
+                <td>
+                    array
+                </td>
+                <td>array of methods</td>
+            </tr>
+            </table></p>
+<h3 id='properties'>Properties</h3>
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$query_parameters</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'item'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'id'</span> <span class="o">=&gt;</span> <span class="mi">587</span><span class="p">,</span>
+        <span class="s1">'entity'</span> <span class="o">=&gt;</span> <span class="s1">'Title'</span><span class="p">,</span>
+        <span class="s1">'properties'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">'description'</span><span class="p">,</span> <span class="s1">'imageSrc'</span><span class="p">,</span> <span class="s1">'season'</span><span class="p">,</span> <span class="s1">'episode'</span><span class="p">,</span> <span class="s1">'duration'</span><span class="p">,</span> <span class="s1">'contentRating'</span><span class="p">,</span> <span class="s1">'metascore'</span><span class="p">,</span>
+            <span class="s1">'locations'</span><span class="p">,</span><span class="s1">'keywords'</span><span class="p">,</span> <span class="s1">'awards'</span><span class="p">,</span> <span class="s1">'rating'</span><span class="p">,</span> <span class="s1">'releasedYear'</span><span class="p">,</span> <span class="s1">'releasedMonth'</span><span class="p">,</span> <span class="s1">'releasedDay'</span><span class="p">,</span><span class="s1">'category'</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+<span class="p">];</span>
+
+<span class="cp">?&gt;</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"item"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">587</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Entertainers with Byron Allen"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"entertainers-with-byron-allen"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://m.media-amazon.com/images/M/MV5BMWFlM2IwNmItZjRhMS00NDk2LTlhNzgtZjczNDFlN2MzYzEzXkEyXkFqcGdeQXVyMzk3NDAxMzk@._V1_UY268_CR12,0,182,268_AL_.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"duration"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"contentRating"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"metascore"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"locations"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"keywords"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"awards"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"rating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.800"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">36</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"scale"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"releasedYear"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"releasedMonth"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"releasedDay"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TV Series"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><table>
+        <thead>
+            <tr>
+                <th>Default</th>
+                <th>Valid Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id, name, slug, imageSrc</td>
+                <td>id, name, description, imageSrc, season, episode, duration, contentRating, metascore, locations, keywords, awards, rating, releasedYear, releasedMonth, releasedDay, episodeParent, slug, category</td>
+            </tr>
+        </tbody>
+    </table></p>
+<h3 id='relations'>Relations</h3>
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$query_parameters</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'item'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'id'</span> <span class="o">=&gt;</span> <span class="mi">587</span><span class="p">,</span>
+        <span class="s1">'entity'</span> <span class="o">=&gt;</span> <span class="s1">'Title'</span><span class="p">,</span>
+        <span class="s1">'relations'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">'cast'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+            <span class="s1">'companies'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+            <span class="s1">'countries'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">],],</span>
+            <span class="s1">'languages'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">],],</span>
+            <span class="s1">'externalSites'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+            <span class="s1">'genres'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+            <span class="s1">'photos'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+            <span class="s1">'reviews'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+            <span class="s1">'plotSummaries'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+            <span class="s1">'trivia'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+            <span class="s1">'videos'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+            <span class="s1">'trailer'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+<span class="p">];</span>
+
+<span class="cp">?&gt;</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"item"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">587</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Entertainers with Byron Allen"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"entertainers-with-byron-allen"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://m.media-amazon.com/images/M/MV5BMWFlM2IwNmItZjRhMS00NDk2LTlhNzgtZjczNDFlN2MzYzEzXkEyXkFqcGdeQXVyMzk3NDAxMzk@._V1_UY268_CR12,0,182,268_AL_.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cast"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"star"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"characterName"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"person"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1756</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Emily Blunt"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"companies"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"countries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USA"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"languages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">74</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"English"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"en"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"externalSites"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"genres"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Documentary"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"photos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1462</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Entertainers with Byron Allen (2000)"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://m.media-amazon.com/images/M/MV5BNzdlM2RlNTQtZDA5OC00NDRjLWIwMTYtY2M5MTliMmVmMGNlXkEyXkFqcGdeQXVyMzk3NDAxMzk@._V1_UY99_CR25,0,99,99_AL_.jpg"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"reviews"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8795</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"It's 3am ..."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I can't sleep, so I'm flipping the dial and see this dude that looks a lot like Byron Allen but the guy's head is shaved and the show is called </span><span class="se">\"</span><span class="s2">Entertainment Studios.com</span><span class="se">\"</span><span class="s2">. HUH?? Was I having a nightmare or was this dreck actually being broadcast?The show's entire content is made up of promo interviews provided by the studios, along with movie trailers, bad comics, and music videos. Between the cheesy music, the obsolete graphics, Allen as host, his wife(?)as producer, and the aforementioned filler, what's the budget...about $47.26 an episode?I somehow stumbled through the entire program and SWEAR that Allen said </span><span class="se">\"</span><span class="s2">Comin' up neeeeext</span><span class="se">\"</span><span class="s2"> prior to every commercial break. Wasn't this guy a comedian at one point in his career? How about some original material, fella?? Anyway, if you want a belly laugh, stay with the show until the end credits and you will be rewarded with a can't miss REALLY bad edit as the music loop runs out. Maybe Byron does the sound editing as well to save a few more bucks?? This really IS syndicated programming at its worst. I'd prefer watching </span><span class="se">\"</span><span class="s2">Conversation with Fred Lewis</span><span class="se">\"</span><span class="s2"> a 1980's infomercial for New Generation hair growth shampoo..."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"reviews"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"rating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.727"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"scale"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"titleRating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.000"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"scale"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"plotSummaries"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"trivia"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"videos"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"trailer"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><table class="table table-responsive">
+        <tr>
+            <th>Function</th>
+            <th>Parameters</th>
+            <th>Properties</th>
+            <th>Description</th>
+        </tr>
+                    <tr>
+                <td>cast</td>
+                <td>
+                                                                            <div><span><strong>Name:</strong> </span>limit</div>
+    <div><span><strong>Required:</strong> </span> yes </div>
+    <div><span><strong>Type:</strong> </span>int</div>
+    <div><span><strong>Max value:</strong> </span>20</div></p>
+
+<p></td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>role, characterName, person</div>
+    <div><span><strong>Valid Options:</strong> </span>role, characterName, person</div></p>
+
+<p></td>
+                <td>
+                    list of cast
+                </td>
+            </tr>
+                    <tr>
+                <td>companies</td>
+                <td>
+                                                                            <div><span><strong>Name:</strong> </span>limit</div>
+    <div><span><strong>Required:</strong> </span> yes </div>
+    <div><span><strong>Type:</strong> </span>int</div>
+    <div><span><strong>Max value:</strong> </span>5</div></p>
+
+<p></td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, name</div>
+    <div><span><strong>Valid Options:</strong> </span>id, name</div></p>
+
+<p></td>
+                <td>
+                    list of companies
+                </td>
+            </tr>
+                    <tr>
+                <td>countries</td>
+                <td>
+                                                                            <div><span><strong>Name:</strong> </span>limit</div>
+    <div><span><strong>Required:</strong> </span> yes </div>
+    <div><span><strong>Type:</strong> </span>int</div>
+    <div><span><strong>Max value:</strong> </span>5</div></p>
+
+<p></td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, name, code</div>
+    <div><span><strong>Valid Options:</strong> </span>id, name, code</div></p>
+
+<p></td>
+                <td>
+                    list of countries
+                </td>
+            </tr>
+                    <tr>
+                <td>languages</td>
+                <td>
+                                                                            <div><span><strong>Name:</strong> </span>limit</div>
+    <div><span><strong>Required:</strong> </span> yes </div>
+    <div><span><strong>Type:</strong> </span>int</div>
+    <div><span><strong>Max value:</strong> </span>5</div></p>
+
+<p></td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, name, code</div>
+    <div><span><strong>Valid Options:</strong> </span>id, name, code</div></p>
+
+<p></td>
+                <td>
+                    list of languages
+                </td>
+            </tr>
+                    <tr>
+                <td>externalSites</td>
+                <td>
+                                                                            <div><span><strong>Name:</strong> </span>limit</div>
+    <div><span><strong>Required:</strong> </span> yes </div>
+    <div><span><strong>Type:</strong> </span>int</div>
+    <div><span><strong>Max value:</strong> </span>5</div></p>
+
+<p></td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, name, cloakedUrl</div>
+    <div><span><strong>Valid Options:</strong> </span>id, name, cloakedUrl</div></p>
+
+<p></td>
+                <td>
+                    list of external sites
+                </td>
+            </tr>
+                    <tr>
+                <td>genres</td>
+                <td>
+                                                                            <div><span><strong>Name:</strong> </span>limit</div>
+    <div><span><strong>Required:</strong> </span> yes </div>
+    <div><span><strong>Type:</strong> </span>int</div>
+    <div><span><strong>Max value:</strong> </span>5</div></p>
+
+<p></td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, name</div>
+    <div><span><strong>Valid Options:</strong> </span>id, name</div></p>
+
+<p></td>
+                <td>
+                    list of genres
+                </td>
+            </tr>
+                    <tr>
+                <td>photos</td>
+                <td>
+                                                                            <div><span><strong>Name:</strong> </span>limit</div>
+    <div><span><strong>Required:</strong> </span> yes </div>
+    <div><span><strong>Type:</strong> </span>int</div>
+    <div><span><strong>Max value:</strong> </span>5</div></p>
+
+<p></td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, name, imageSrc</div>
+    <div><span><strong>Valid Options:</strong> </span>id, name, imageSrc</div></p>
+
+<p></td>
+                <td>
+                    list of photos
+                </td>
+            </tr>
+                    <tr>
+                <td>reviews</td>
+                <td>
+                                                                            <div><span><strong>Name:</strong> </span>limit</div>
+    <div><span><strong>Required:</strong> </span> yes </div>
+    <div><span><strong>Type:</strong> </span>int</div>
+    <div><span><strong>Max value:</strong> </span>5</div></p>
+
+<p></td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, name, content, category, rating, titleRating</div>
+    <div><span><strong>Valid Options:</strong> </span>id, name, content, category, rating, titleRating</div></p>
+
+<p></td>
+                <td>
+                    list of reviews
+                </td>
+            </tr>
+                    <tr>
+                <td>videos</td>
+                <td>
+                                                                            <div><span><strong>Name:</strong> </span>limit</div>
+    <div><span><strong>Required:</strong> </span> yes </div>
+    <div><span><strong>Type:</strong> </span>int</div>
+    <div><span><strong>Max value:</strong> </span>5</div></p>
+
+<p></td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, externalId, name, category, duration, imageSrc</div>
+    <div><span><strong>Valid Options:</strong> </span>id, externalId, name, category, duration, imageSrc</div></p>
+
+<p></td>
+                <td>
+                    list of videos
+                </td>
+            </tr>
+                    <tr>
+                <td>trailer</td>
+                <td>
+                                                                            <div><span><strong>Name:</strong> </span>limit</div>
+    <div><span><strong>Required:</strong> </span> yes </div>
+    <div><span><strong>Type:</strong> </span>int</div>
+    <div><span><strong>Max value:</strong> </span>5</div></p>
+
+<p></td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, externalId, name, category, duration, imageSrc</div>
+    <div><span><strong>Valid Options:</strong> </span>id, externalId, name, category, duration, imageSrc</div></p>
+
+<p></td>
+                <td>
+                    list of trailers
+                </td>
+            </tr>
+                    <tr>
+                <td>plotSummaries</td>
+                <td>
+                                                                            <div><span><strong>Name:</strong> </span>limit</div>
+    <div><span><strong>Required:</strong> </span> yes </div>
+    <div><span><strong>Type:</strong> </span>int</div>
+    <div><span><strong>Max value:</strong> </span>5</div></p>
+
+<p></td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, name, content, category, rating, titleRating</div>
+    <div><span><strong>Valid Options:</strong> </span>id, name, content, category, rating, titleRating</div></p>
+
+<p></td>
+                <td>
+                    list of plot summaries
+                </td>
+            </tr>
+                    <tr>
+                <td>trivia</td>
+                <td>
+                                                                            <div><span><strong>Name:</strong> </span>limit</div>
+    <div><span><strong>Required:</strong> </span> yes </div>
+    <div><span><strong>Type:</strong> </span>int</div>
+    <div><span><strong>Max value:</strong> </span>5</div></p>
+
+<p></td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, name, content, category, rating, titleRating</div>
+    <div><span><strong>Valid Options:</strong> </span>id, name, content, category, rating, titleRating</div></p>
+
+<p></td>
+                <td>
+                    list of trivia
+                </td>
+            </tr>
+            </table></p>
+<h3 id='methods'>Methods</h3>
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$query_parameters</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'item'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'id'</span> <span class="o">=&gt;</span> <span class="mi">587</span><span class="p">,</span>
+        <span class="s1">'entity'</span> <span class="o">=&gt;</span> <span class="s1">'Title'</span><span class="p">,</span>
+        <span class="s1">'methods'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'otherTitles'</span><span class="p">,</span> <span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">'properties'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'imageSrc'</span><span class="p">]],</span>
+            <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'randomDescription'</span><span class="p">],</span>
+            <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'listSeasons'</span><span class="p">,</span> <span class="p">],</span>
+            <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'listSeasonsWithEpisodes'</span><span class="p">,</span> <span class="p">],</span>
+            <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'nextEpisode'</span><span class="p">,</span> <span class="s1">'properties'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'season'</span><span class="p">,</span> <span class="s1">'episode'</span><span class="p">]],</span>
+            <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'previousEpisode'</span><span class="p">,</span> <span class="s1">'properties'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'season'</span><span class="p">,</span> <span class="s1">'episode'</span><span class="p">]],</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+<span class="p">];</span>
+
+<span class="cp">?&gt;</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"item"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">587</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Entertainers with Byron Allen"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"entertainers-with-byron-allen"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://m.media-amazon.com/images/M/MV5BMWFlM2IwNmItZjRhMS00NDk2LTlhNzgtZjczNDFlN2MzYzEzXkEyXkFqcGdeQXVyMzk3NDAxMzk@._V1_UY268_CR12,0,182,268_AL_.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"otherTitles"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">654</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2000 Blockbuster Entertainment Awards"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2000-blockbuster-entertainment-awards"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"randomDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I can't sleep, so I'm flipping the dial and see this dude that looks a lot like Byron Allen but the guy's head is shaved and the show is called </span><span class="se">\"</span><span class="s2">Entertainment Studios.com</span><span class="se">\"</span><span class="s2">. HUH?? Was I having a nightmare or was this dreck actually being broadcast?The show's entire content is made up of promo interviews provided by the studios, along with movie trailers, bad comics, and music videos. Between the cheesy music, the obsolete graphics, Allen as host, his wife(?)as producer, and the aforementioned filler, what's the budget...about $47.26 an episode?I somehow stumbled through the entire program and SWEAR that Allen said </span><span class="se">\"</span><span class="s2">Comin' up neeeeext</span><span class="se">\"</span><span class="s2"> prior to every commercial break. Wasn't this guy a comedian at one point in his career? How about some original material, fella?? Anyway, if you want a belly laugh, stay with the show until the end credits and you will be rewarded with a can't miss REALLY bad edit as the music loop runs out. Maybe Byron does the sound editing as well to save a few more bucks?? This really IS syndicated programming at its worst. I'd prefer watching </span><span class="se">\"</span><span class="s2">Conversation with Fred Lewis</span><span class="se">\"</span><span class="s2"> a 1980's infomercial for New Generation hair growth shampoo..."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"listSeasons"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"-1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"25"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"listSeasonsWithEpisodes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"25"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">98106</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode #25.4"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-25-4"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"-1"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">265482</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 31 March 2008"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-31-march-2008"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">196155</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 6 October 2012"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-6-october-2012"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">159863</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 29 January 2000"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-29-january-2000"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">368517</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 7 November 2016"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-7-november-2016"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">368518</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 31 October 2016"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-31-october-2016"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50342</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 11 March 2013"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-11-march-2013"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2874580</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 17 December 2011"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-17-december-2011"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2874583</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 12 November 2011"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-12-november-2011"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">259040</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 18 February 2012"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-18-february-2012"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">32762</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 11 June 2012"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-11-june-2012"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"nextEpisode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"previousEpisode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><table class="table table-responsive">
+        <tr>
+            <th>Function</th>
+            <th>Parameters</th>
+            <th>Properties</th>
+            <th>Description</th>
+        </tr>
+                    <tr>
+                <td>otherTitles</td>
+                <td>
+                                                                            <div><span><strong>Name:</strong> </span>limit</div>
+    <div><span><strong>Required:</strong> </span> yes </div>
+    <div><span><strong>Type:</strong> </span>int</div>
+    <div><span><strong>Max value:</strong> </span>10</div></p>
+
+<p></td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, name, slug, imageSrc</div>
+    <div><span><strong>Valid Options:</strong> </span>id, name, description, imageSrc, season, episode, duration, contentRating, metascore, locations, keywords, awards, rating, releasedYear, releasedMonth, releasedDay, episodeParent, slug, category</div></p>
+
+<p></td>
+                <td>
+                    other titles based on major title
+                </td>
+            </tr>
+                    <tr>
+                <td>randomDescription</td>
+                <td>
+                                            None.
+                                    </td>
+                <td>
+                                            None.
+                                    </td>
+                <td>
+                    generate random description
+                </td>
+            </tr>
+                    <tr>
+                <td>listSeasons</td>
+                <td>
+                                            None.
+                                    </td>
+                <td>
+                                            None.
+                                    </td>
+                <td>
+                    list of seasons if major entity is a tv show
+                </td>
+            </tr>
+                    <tr>
+                <td>listSeasonsWithEpisodes</td>
+                <td>
+                                            None.
+                                    </td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, name, slug, imageSrc</div>
+    <div><span><strong>Valid Options:</strong> </span>id, name, description, imageSrc, season, episode, duration, contentRating, metascore, locations, keywords, awards, rating, releasedYear, releasedMonth, releasedDay, episodeParent, slug, category</div></p>
+
+<p></td>
+                <td>
+                    list of seasons with episodes as objects
+                </td>
+            </tr>
+                    <tr>
+                <td>nextEpisode</td>
+                <td>
+                                            None.
+                                    </td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, name, slug, imageSrc</div>
+    <div><span><strong>Valid Options:</strong> </span>id, name, description, imageSrc, season, episode, duration, contentRating, metascore, locations, keywords, awards, rating, releasedYear, releasedMonth, releasedDay, episodeParent, slug, category</div></p>
+
+<p></td>
+                <td>
+                    next episode if major entity is episode
+                </td>
+            </tr>
+                    <tr>
+                <td>previousEpisode</td>
+                <td>
+                                            None.
+                                    </td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, name, slug, imageSrc</div>
+    <div><span><strong>Valid Options:</strong> </span>id, name, description, imageSrc, season, episode, duration, contentRating, metascore, locations, keywords, awards, rating, releasedYear, releasedMonth, releasedDay, episodeParent, slug, category</div></p>
+
+<p></td>
+                <td>
+                    previous episode if major entity is episode
+                </td>
+            </tr>
+            </table></p>
+<h3 id='full-example-title'>Full Example (title)</h3>
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$query_parameters</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'item'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'id'</span> <span class="o">=&gt;</span> <span class="mi">587</span><span class="p">,</span>
+        <span class="s1">'entity'</span> <span class="o">=&gt;</span> <span class="s1">'Title'</span><span class="p">,</span>
+        <span class="s1">'properties'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">'description'</span><span class="p">,</span> <span class="s1">'imageSrc'</span><span class="p">,</span> <span class="s1">'season'</span><span class="p">,</span> <span class="s1">'episode'</span><span class="p">,</span> <span class="s1">'duration'</span><span class="p">,</span> <span class="s1">'contentRating'</span><span class="p">,</span> <span class="s1">'metascore'</span><span class="p">,</span>
+            <span class="s1">'locations'</span><span class="p">,</span><span class="s1">'keywords'</span><span class="p">,</span> <span class="s1">'awards'</span><span class="p">,</span> <span class="s1">'rating'</span><span class="p">,</span> <span class="s1">'releasedYear'</span><span class="p">,</span> <span class="s1">'releasedMonth'</span><span class="p">,</span> <span class="s1">'releasedDay'</span><span class="p">,</span><span class="s1">'category'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s1">'relations'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">'cast'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+            <span class="s1">'companies'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+            <span class="s1">'countries'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">],],</span>
+            <span class="s1">'languages'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">],],</span>
+            <span class="s1">'externalSites'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+            <span class="s1">'genres'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+            <span class="s1">'photos'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+            <span class="s1">'reviews'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+            <span class="s1">'plotSummaries'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+            <span class="s1">'trivia'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+            <span class="s1">'videos'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+            <span class="s1">'trailer'</span> <span class="o">=&gt;</span>  <span class="p">[</span><span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]],</span>
+        <span class="p">],</span>
+        <span class="s1">'methods'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'otherTitles'</span><span class="p">,</span> <span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">'properties'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'imageSrc'</span><span class="p">]],</span>
+            <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'randomDescription'</span><span class="p">],</span>
+            <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'listSeasons'</span><span class="p">,</span> <span class="p">],</span>
+            <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'listSeasonsWithEpisodes'</span><span class="p">,</span> <span class="p">],</span>
+            <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'nextEpisode'</span><span class="p">,</span> <span class="s1">'properties'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'season'</span><span class="p">,</span> <span class="s1">'episode'</span><span class="p">]],</span>
+            <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'previousEpisode'</span><span class="p">,</span> <span class="s1">'properties'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'season'</span><span class="p">,</span> <span class="s1">'episode'</span><span class="p">]],</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+    <span class="s1">'extra'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'popularTitles'</span><span class="p">,</span> <span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">'properties'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'imageSrc'</span><span class="p">]],</span>
+        <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'latestTitles'</span><span class="p">,</span> <span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">'properties'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'imageSrc'</span><span class="p">]],</span>
+        <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'latestEpisodes'</span><span class="p">,</span> <span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">'properties'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'episodeParent'</span><span class="p">]],</span>
+    <span class="p">],</span>
+<span class="p">];</span>
+<span class="nv">$api_key</span> <span class="o">=</span> <span class="nx">YOURAPIKEY</span><span class="p">;</span>
+
+<span class="nv">$httpClient</span> <span class="o">=</span> <span class="nx">HttpClient</span><span class="o">::</span><span class="na">create</span><span class="p">([</span>
+    <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'X-AUTH-API'</span> <span class="o">=&gt;</span> <span class="nv">$api_key</span><span class="p">],</span>
+<span class="p">]);</span>
+
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$httpClient</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span> <span class="s1">'https://admin.bunny-holding.com/api'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'query'</span> <span class="o">=&gt;</span> <span class="nv">$query_parameters</span><span class="p">,]);</span>
+
+<span class="cp">?&gt;</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"item"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">587</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Entertainers with Byron Allen"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"entertainers-with-byron-allen"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://m.media-amazon.com/images/M/MV5BMWFlM2IwNmItZjRhMS00NDk2LTlhNzgtZjczNDFlN2MzYzEzXkEyXkFqcGdeQXVyMzk3NDAxMzk@._V1_UY268_CR12,0,182,268_AL_.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"duration"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"contentRating"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"metascore"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"locations"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"keywords"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"awards"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"rating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.800"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">36</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"scale"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"releasedYear"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"releasedMonth"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"releasedDay"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TV Series"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cast"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"star"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"characterName"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"person"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1756</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Emily Blunt"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"companies"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"countries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USA"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"languages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">74</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"English"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"en"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"externalSites"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"genres"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Documentary"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"photos"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1462</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Entertainers with Byron Allen (2000)"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://m.media-amazon.com/images/M/MV5BNzdlM2RlNTQtZDA5OC00NDRjLWIwMTYtY2M5MTliMmVmMGNlXkEyXkFqcGdeQXVyMzk3NDAxMzk@._V1_UY99_CR25,0,99,99_AL_.jpg"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"reviews"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8795</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"It's 3am ..."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I can't sleep, so I'm flipping the dial and see this dude that looks a lot like Byron Allen but the guy's head is shaved and the show is called </span><span class="se">\"</span><span class="s2">Entertainment Studios.com</span><span class="se">\"</span><span class="s2">. HUH?? Was I having a nightmare or was this dreck actually being broadcast?The show's entire content is made up of promo interviews provided by the studios, along with movie trailers, bad comics, and music videos. Between the cheesy music, the obsolete graphics, Allen as host, his wife(?)as producer, and the aforementioned filler, what's the budget...about $47.26 an episode?I somehow stumbled through the entire program and SWEAR that Allen said </span><span class="se">\"</span><span class="s2">Comin' up neeeeext</span><span class="se">\"</span><span class="s2"> prior to every commercial break. Wasn't this guy a comedian at one point in his career? How about some original material, fella?? Anyway, if you want a belly laugh, stay with the show until the end credits and you will be rewarded with a can't miss REALLY bad edit as the music loop runs out. Maybe Byron does the sound editing as well to save a few more bucks?? This really IS syndicated programming at its worst. I'd prefer watching </span><span class="se">\"</span><span class="s2">Conversation with Fred Lewis</span><span class="se">\"</span><span class="s2"> a 1980's infomercial for New Generation hair growth shampoo..."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"reviews"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"rating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.727"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"scale"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"titleRating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.000"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"scale"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"plotSummaries"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"trivia"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"videos"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"trailer"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"otherTitles"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">654</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2000 Blockbuster Entertainment Awards"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2000-blockbuster-entertainment-awards"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"randomDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I can't sleep, so I'm flipping the dial and see this dude that looks a lot like Byron Allen but the guy's head is shaved and the show is called </span><span class="se">\"</span><span class="s2">Entertainment Studios.com</span><span class="se">\"</span><span class="s2">. HUH?? Was I having a nightmare or was this dreck actually being broadcast?The show's entire content is made up of promo interviews provided by the studios, along with movie trailers, bad comics, and music videos. Between the cheesy music, the obsolete graphics, Allen as host, his wife(?)as producer, and the aforementioned filler, what's the budget...about $47.26 an episode?I somehow stumbled through the entire program and SWEAR that Allen said </span><span class="se">\"</span><span class="s2">Comin' up neeeeext</span><span class="se">\"</span><span class="s2"> prior to every commercial break. Wasn't this guy a comedian at one point in his career? How about some original material, fella?? Anyway, if you want a belly laugh, stay with the show until the end credits and you will be rewarded with a can't miss REALLY bad edit as the music loop runs out. Maybe Byron does the sound editing as well to save a few more bucks?? This really IS syndicated programming at its worst. I'd prefer watching </span><span class="se">\"</span><span class="s2">Conversation with Fred Lewis</span><span class="se">\"</span><span class="s2"> a 1980's infomercial for New Generation hair growth shampoo..."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"listSeasons"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"-1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"25"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"listSeasonsWithEpisodes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"25"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">98106</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode #25.4"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-25-4"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"-1"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">265482</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 31 March 2008"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-31-march-2008"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">196155</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 6 October 2012"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-6-october-2012"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">159863</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 29 January 2000"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-29-january-2000"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">368517</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 7 November 2016"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-7-november-2016"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">368518</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 31 October 2016"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-31-october-2016"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50342</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 11 March 2013"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-11-march-2013"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2874580</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 17 December 2011"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-17-december-2011"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2874583</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 12 November 2011"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-12-november-2011"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">259040</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 18 February 2012"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-18-february-2012"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">32762</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 11 June 2012"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-11-june-2012"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"season"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"episode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"nextEpisode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"previousEpisode"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"extra"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"popularTitles"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">587</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Entertainers with Byron Allen"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"entertainers-with-byron-allen"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://m.media-amazon.com/images/M/MV5BMWFlM2IwNmItZjRhMS00NDk2LTlhNzgtZjczNDFlN2MzYzEzXkEyXkFqcGdeQXVyMzk3NDAxMzk@._V1_UY268_CR12,0,182,268_AL_.jpg"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"latestTitles"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4871906</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ilox"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ilox"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"latestEpisodes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4894909</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Episode dated 25 May 2005"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"episode-dated-25-may-2005"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"episodeParent"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1066875</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"El mundo en 24 horas"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"el-mundo-en-24-horas"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p>Working example with full configuration for title</p>
+<h2 id='item-person'>Item (person)</h2>
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$query_parameters</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'item'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'id'</span> <span class="o">=&gt;</span> <span class="mi">25</span><span class="p">,</span>
+        <span class="s1">'entity'</span> <span class="o">=&gt;</span> <span class="s1">'Person'</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">];</span>
+
+<span class="cp">?&gt;</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"item"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jeté Laurence"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p>Required: false</p>
+
+<p><table class="table table-responsive">
+        <tr>
+            <th>Parameter</th>
+            <th>Required</th>
+            <th>Allowed Values</th>
+            <th>Format</th>
+            <th>Description</th>
+        </tr>
+                    <tr>
+                <td>entity</td>
+                <td>                        yes
+                                    </td>
+                <td>
+                                            Person
+                                    </td>
+                <td>
+                    string
+                </td>
+                <td>static text, identify collection</td>
+            </tr>
+                    <tr>
+                <td>id</td>
+                <td>                        yes
+                                    </td>
+                <td>
+                                                        </td>
+                <td>
+                    integer
+                </td>
+                <td>the ID of major person</td>
+            </tr>
+                    <tr>
+                <td>properties</td>
+                <td>                        no
+                                    </td>
+                <td>
+                                                                        <a href="#properties-2">properties</a>
+                                                            </td>
+                <td>
+                    array
+                </td>
+                <td>array of properties</td>
+            </tr>
+                    <tr>
+                <td>methods</td>
+                <td>                        no
+                                    </td>
+                <td>
+                                                                        <a href="#methods-2">methods</a>
+                                                            </td>
+                <td>
+                    array
+                </td>
+                <td>array of methods</td>
+            </tr>
+            </table></p>
+<h3 id='properties-2'>Properties</h3>
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$query_parameters</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'item'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'id'</span> <span class="o">=&gt;</span> <span class="mi">25</span><span class="p">,</span>
+        <span class="s1">'entity'</span> <span class="o">=&gt;</span> <span class="s1">'Person'</span><span class="p">,</span>
+        <span class="s1">'properties'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">'id'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'imageSrc'</span><span class="p">,</span> <span class="s1">'description'</span><span class="p">,</span> <span class="s1">'birthYear'</span><span class="p">,</span> <span class="s1">'birthMonth'</span><span class="p">,</span> <span class="s1">'birthDay'</span><span class="p">,</span> <span class="s1">'birthPlace'</span><span class="p">,</span>
+            <span class="s1">'deathYear'</span><span class="p">,</span> <span class="s1">'deathMonth'</span><span class="p">,</span> <span class="s1">'deathDay'</span><span class="p">,</span> <span class="s1">'deathPlace'</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+<span class="p">];</span>
+
+<span class="cp">?&gt;</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"item"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jeté Laurence"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://m.media-amazon.com/images/M/MV5BM2Q5NjA0ZTMtZWM4Yi00ZjkxLWIyNTYtMzcyYjBiMTdhNWI5XkEyXkFqcGdeQXVyNjg2NjQwMDQ@._V1_UY317_CR130,0,214,317_AL_.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jeté Laurence is an actress, known for The Snowman (2017), The Americans (2013) and Jessica Jones (2015)."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"birthYear"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"birthMonth"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"birthDay"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"birthPlace"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"deathYear"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"deathMonth"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"deathDay"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"deathPlace"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><table>
+        <thead>
+            <tr>
+                <th>Default</th>
+                <th>Valid Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id, name</td>
+                <td>id, name, imageSrc, description, birthYear, birthMonth, birthDay, birthPlace, deathYear, deathMonth, deathDay, deathPlace</td>
+            </tr>
+        </tbody>
+    </table></p>
+<h3 id='methods-2'>Methods</h3>
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$query_parameters</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'item'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'id'</span> <span class="o">=&gt;</span> <span class="mi">25</span><span class="p">,</span>
+        <span class="s1">'entity'</span> <span class="o">=&gt;</span> <span class="s1">'Person'</span><span class="p">,</span>
+        <span class="s1">'methods'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'otherTitles'</span><span class="p">,</span> <span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">'properties'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'imageSrc'</span><span class="p">]],</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+<span class="p">];</span>
+
+<span class="cp">?&gt;</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"item"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jeté Laurence"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"otherTitles"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p><table class="table table-responsive">
+        <tr>
+            <th>Function</th>
+            <th>Parameters</th>
+            <th>Properties</th>
+            <th>Description</th>
+        </tr>
+                    <tr>
+                <td>otherTitles</td>
+                <td>
+                                                                            <div><span><strong>Name:</strong> </span>limit</div>
+    <div><span><strong>Required:</strong> </span> yes </div>
+    <div><span><strong>Type:</strong> </span>int</div>
+    <div><span><strong>Max value:</strong> </span>30</div></p>
+
+<p></td>
+                <td>
+                                                <div><span><strong>Default:</strong> </span>id, name, slug, imageSrc</div>
+    <div><span><strong>Valid Options:</strong> </span>id, name, description, imageSrc, season, episode, duration, contentRating, metascore, locations, keywords, awards, rating, releasedYear, releasedMonth, releasedDay, episodeParent, slug, category</div></p>
+
+<p></td>
+                <td>
+                    titles from major person
+                </td>
+            </tr>
+            </table></p>
+<h3 id='full-example-person'>Full Example (person)</h3>
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$query_parameters</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'item'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'id'</span> <span class="o">=&gt;</span> <span class="mi">25</span><span class="p">,</span>
+        <span class="s1">'entity'</span> <span class="o">=&gt;</span> <span class="s1">'Person'</span><span class="p">,</span>
+        <span class="s1">'methods'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="p">[</span><span class="s1">'function'</span> <span class="o">=&gt;</span> <span class="s1">'otherTitles'</span><span class="p">,</span> <span class="s1">'parameters'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'limit'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">'properties'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'imageSrc'</span><span class="p">]],</span>
+        <span class="p">],</span>
+        <span class="s1">'properties'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">'id'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'imageSrc'</span><span class="p">,</span> <span class="s1">'description'</span><span class="p">,</span> <span class="s1">'birthYear'</span><span class="p">,</span> <span class="s1">'birthMonth'</span><span class="p">,</span> <span class="s1">'birthDay'</span><span class="p">,</span> <span class="s1">'birthPlace'</span><span class="p">,</span>
+            <span class="s1">'deathYear'</span><span class="p">,</span> <span class="s1">'deathMonth'</span><span class="p">,</span> <span class="s1">'deathDay'</span><span class="p">,</span> <span class="s1">'deathPlace'</span>
+        <span class="p">],</span>
+    <span class="p">],</span>
+<span class="p">];</span>
+<span class="nv">$api_key</span> <span class="o">=</span> <span class="nx">YOURAPIKEY</span><span class="p">;</span>
+
+<span class="nv">$httpClient</span> <span class="o">=</span> <span class="nx">HttpClient</span><span class="o">::</span><span class="na">create</span><span class="p">([</span>
+    <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'X-AUTH-API'</span> <span class="o">=&gt;</span> <span class="nv">$api_key</span><span class="p">],</span>
+<span class="p">]);</span>
+
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$httpClient</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span> <span class="s1">'https://admin.bunny-holding.com/api'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'query'</span> <span class="o">=&gt;</span> <span class="nv">$query_parameters</span><span class="p">,]);</span>
+
+<span class="cp">?&gt;</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"item"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jeté Laurence"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"imageSrc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://m.media-amazon.com/images/M/MV5BM2Q5NjA0ZTMtZWM4Yi00ZjkxLWIyNTYtMzcyYjBiMTdhNWI5XkEyXkFqcGdeQXVyNjg2NjQwMDQ@._V1_UY317_CR130,0,214,317_AL_.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jeté Laurence is an actress, known for The Snowman (2017), The Americans (2013) and Jessica Jones (2015)."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"birthYear"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"birthMonth"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"birthDay"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"birthPlace"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"deathYear"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"deathMonth"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"deathDay"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"deathPlace"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"otherTitles"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<p>Working example with full configuration for person</p>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="php">php</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
