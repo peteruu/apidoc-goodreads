@@ -1,5 +1,5 @@
 ---
-title: Imdb Unofficial Api
+title: Goodreads Unofficial Api
 
 language_tabs: # must be one of https://git.io/vQNgJ
 - php
@@ -8,7 +8,7 @@ search: true
 ---
 # Introduction
 
-Welcome to the Imdb Unofficial API! You can use our API to access Imdb content.
+Welcome to the Goodreads Unofficial API! You can use our API to access Goodreads content.
 In examples we are using Symfony component called [The HttpClient Component](https://symfony.com/doc/current/components/http_client.html).
 
 # Authentication
@@ -23,7 +23,7 @@ $api_key = YOURAPIKEY;
 $query_parameters = QUERYPARAMETERS;
 
 $httpClient = HttpClient::create([
-'headers' => ['X-AUTH-API' => $api_key],
+    'headers' => ['X-AUTH-API' => $api_key],
 ]);
 
 $response = $httpClient->request('GET', 'https://admin.bunny-holding.com/api', ['query' => $query_parameters,]);
@@ -51,9 +51,8 @@ Query parameters are used to generated specific response. You can combine it in 
 <?php
 $query_parameters = [
     'extra' => [
-        ['function' => 'popularTitles', 'parameters' => ['limit' => 1], 'properties' => ['imageSrc']],
-        ['function' => 'latestTitles', 'parameters' => ['limit' => 2], 'properties' => ['imageSrc']],
-        ['function' => 'latestEpisodes', 'parameters' => ['limit' => 1], 'properties' => ['episodeParent']],
+        ['function' => 'popularBooks', 'parameters' => ['limit' => 1], 'properties' => ['imageSrc']],
+        ['function' => 'latestBooks', 'parameters' => ['limit' => 2], 'properties' => ['imageSrc', 'pages']],
     ],
 ];
 
@@ -66,40 +65,28 @@ $query_parameters = [
 ```json
 {
   "extra": {
-    "popularTitles": [
+    "popularBooks": [
       {
-        "id": 587,
-        "name": "Entertainers with Byron Allen",
-        "slug": "entertainers-with-byron-allen",
-        "imageSrc": "https://m.media-amazon.com/images/M/MV5BMWFlM2IwNmItZjRhMS00NDk2LTlhNzgtZjczNDFlN2MzYzEzXkEyXkFqcGdeQXVyMzk3NDAxMzk@._V1_UY268_CR12,0,182,268_AL_.jpg"
+        "id": 1,
+        "name": "The Lord of the Rings",
+        "slug": "the-lord-of-the-rings",
+        "imageSrc": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1547450792i/33.jpg"
       }
     ],
-    "latestTitles": [
+    "latestBooks": [
       {
-        "id": 4871906,
-        "name": "Ilox",
-        "slug": "ilox",
-        "imageSrc": null
+        "id": 1,
+        "name": "The Lord of the Rings",
+        "slug": "the-lord-of-the-rings",
+        "imageSrc": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1547450792i/33.jpg",
+        "pages": 1216
       },
       {
-        "id": 4866166,
-        "name": "Shangoul & Mangoul",
-        "slug": "shangoul-mangoul",
-        "imageSrc": null
-      }
-    ],
-    "latestEpisodes": [
-      {
-        "id": 4894909,
-        "name": "Episode dated 25 May 2005",
-        "slug": "episode-dated-25-may-2005",
-        "imageSrc": null,
-        "episodeParent": {
-          "id": 1066875,
-          "name": "El mundo en 24 horas",
-          "slug": "el-mundo-en-24-horas",
-          "imageSrc": null
-        }
+        "id": 2,
+        "name": "The Lord of the Rings",
+        "slug": "the-lord-of-the-rings",
+        "imageSrc": "https://images.gr-assets.com/books/1330855500l/13510444.jpg",
+        "pages": 1220
       }
     ]
   }
@@ -117,57 +104,39 @@ $query_parameters = [
             <th>Description</th>
         </tr>
                     <tr>
-                <td>popularTitles</td>
+                <td>popularBooks</td>
                 <td>
                                                                             <div><span>**Name:** </span>limit</div>
     <div><span>**Required:** </span> yes </div>
     <div><span>**Type:** </span>int</div>
-    <div><span>**Max value:** </span>15</div>
+    <div><span>**Max value:** </span>10</div>
     
                                                             </td>
                 <td>
-                                                <div><span>**Default:** </span>id, name, slug, imageSrc</div>
-    <div><span>**Valid Options:** </span>id, name, description, imageSrc, season, episode, duration, contentRating, metascore, locations, keywords, awards, rating, releasedYear, releasedMonth, releasedDay, episodeParent, slug, category</div>
+                                                <div><span>**Default:** </span>id, name, slug</div>
+    <div><span>**Valid Options:** </span>id, name, description, imageSrc, isbn10, isbn13, asin10, externalUrl, pages, rating, releasedYear, releasedMonth, releasedDay, firstReleasedYear, firstReleasedMonth, firstReleasedDay, slug, format, language</div>
 
                                     </td>
                 <td>
-                    list of popular titles
+                    list of popular books
                 </td>
             </tr>
                     <tr>
-                <td>latestTitles</td>
+                <td>latestBooks</td>
                 <td>
                                                                             <div><span>**Name:** </span>limit</div>
     <div><span>**Required:** </span> yes </div>
     <div><span>**Type:** </span>int</div>
-    <div><span>**Max value:** </span>15</div>
+    <div><span>**Max value:** </span>10</div>
     
                                                             </td>
                 <td>
-                                                <div><span>**Default:** </span>id, name, slug, imageSrc</div>
-    <div><span>**Valid Options:** </span>id, name, description, imageSrc, season, episode, duration, contentRating, metascore, locations, keywords, awards, rating, releasedYear, releasedMonth, releasedDay, episodeParent, slug, category</div>
+                                                <div><span>**Default:** </span>id, name, slug</div>
+    <div><span>**Valid Options:** </span>id, name, description, imageSrc, isbn10, isbn13, asin10, externalUrl, pages, rating, releasedYear, releasedMonth, releasedDay, firstReleasedYear, firstReleasedMonth, firstReleasedDay, slug, format, language</div>
 
                                     </td>
                 <td>
-                    list of latest titles
-                </td>
-            </tr>
-                    <tr>
-                <td>latestEpisodes</td>
-                <td>
-                                                                            <div><span>**Name:** </span>limit</div>
-    <div><span>**Required:** </span> yes </div>
-    <div><span>**Type:** </span>int</div>
-    <div><span>**Max value:** </span>15</div>
-    
-                                                            </td>
-                <td>
-                                                <div><span>**Default:** </span>id, name, slug, imageSrc</div>
-    <div><span>**Valid Options:** </span>id, name, description, imageSrc, season, episode, duration, contentRating, metascore, locations, keywords, awards, rating, releasedYear, releasedMonth, releasedDay, episodeParent, slug, category</div>
-
-                                    </td>
-                <td>
-                    list of latest episodes
+                    list of latest books
                 </td>
             </tr>
             </table>
@@ -178,15 +147,15 @@ $query_parameters = [
 
 
 
-## Item (title)
+## Item (book)
 > Request:
 
 ```php
 <?php
 $query_parameters = [
     'item' => [
-        'id' => 587,
-        'entity' => 'Title',
+        'id' => 2,
+        'entity' => 'Book',
     ],
 ];
 
@@ -199,10 +168,9 @@ $query_parameters = [
 ```json
 {
   "item": {
-    "id": 587,
-    "name": "Entertainers with Byron Allen",
-    "slug": "entertainers-with-byron-allen",
-    "imageSrc": "https://m.media-amazon.com/images/M/MV5BMWFlM2IwNmItZjRhMS00NDk2LTlhNzgtZjczNDFlN2MzYzEzXkEyXkFqcGdeQXVyMzk3NDAxMzk@._V1_UY268_CR12,0,182,268_AL_.jpg"
+    "id": 2,
+    "name": "The Lord of the Rings",
+    "slug": "the-lord-of-the-rings"
   }
 }
 
@@ -224,7 +192,7 @@ $query_parameters = [
                 <td>                        yes
                                     </td>
                 <td>
-                                            Title
+                                            Book
                                     </td>
                 <td>
                     string
@@ -240,7 +208,7 @@ $query_parameters = [
                 <td>
                     integer
                 </td>
-                <td>the ID of major title</td>
+                <td>the ID of major book</td>
             </tr>
                     <tr>
                 <td>properties</td>
@@ -289,11 +257,11 @@ $query_parameters = [
 <?php
 $query_parameters = [
     'item' => [
-        'id' => 587,
-        'entity' => 'Title',
+        'id' => 2,
+        'entity' => 'Book',
         'properties' => [
-            'description', 'imageSrc', 'season', 'episode', 'duration', 'contentRating', 'metascore',
-            'locations','keywords', 'awards', 'rating', 'releasedYear', 'releasedMonth', 'releasedDay','category',
+            'id', 'name', 'description', 'imageSrc', 'isbn10', 'isbn13', 'asin10', 'externalUrl', 'pages', 'rating',
+            'releasedYear', 'releasedMonth', 'releasedDay', 'firstReleasedYear', 'firstReleasedMonth', 'firstReleasedDay', 'slug',
         ],
     ],
 ];
@@ -307,28 +275,27 @@ $query_parameters = [
 ```json
 {
   "item": {
-    "id": 587,
-    "name": "Entertainers with Byron Allen",
-    "slug": "entertainers-with-byron-allen",
-    "imageSrc": "https://m.media-amazon.com/images/M/MV5BMWFlM2IwNmItZjRhMS00NDk2LTlhNzgtZjczNDFlN2MzYzEzXkEyXkFqcGdeQXVyMzk3NDAxMzk@._V1_UY268_CR12,0,182,268_AL_.jpg",
-    "description": null,
-    "season": null,
-    "episode": null,
-    "duration": null,
-    "contentRating": null,
-    "metascore": null,
-    "locations": [],
-    "keywords": [],
-    "awards": [],
+    "id": 2,
+    "name": "The Lord of the Rings",
+    "slug": "the-lord-of-the-rings",
+    "description": "One Ring to rule them all, One Ring to find them, One Ring to bring them all and in the darkness bind them<br><br>In ancient times the Rings of Power were crafted by the Elven-smiths, and Sauron, the Dark Lord, forged the One Ring, filling it with his own power so that he could rule all others. But the One Ring was taken from him, and though he sought it throughout Middle-earth, it remained lost to him. After many ages it fell by chance into the hands of the hobbit Bilbo Baggins.<br><br>From Sauron's fastness in the Dark Tower of Mordor, his power spread far and wide. Sauron gathered all the Great Rings to him, but always he searched for the One Ring that would complete his dominion.<br><br>When Bilbo reached his eleventy-first birthday he disappeared, bequeathing to his young cousin Frodo the Ruling Ring and a perilous quest: to journey across Middle-earth, deep into the shadow of the Dark Lord, and destroy the Ring by casting it into the Cracks of Doom.<br><br>The Lord of the Rings tells of the great quest undertaken by Frodo and the Fellowship of the Ring: Gandalf the Wizard; the hobbits Merry, Pippin, and Sam; Gimli the Dwarf; Legolas the Elf; Boromir of Gondor; and a tall, mysterious stranger called Strider.<br><br>This new edition includes the fiftieth-anniversary fully corrected text setting and, for the first time, an extensive new index.<br><br>J.R.R. Tolkien (1892-1973), beloved throughout the world as the creator of The Hobbit, The Lord of the Rings, and The Silmarillion, was a professor of Anglo-Saxon at Oxford, a fellow of Pembroke College, and a fellow of Merton College until his retirement in 1959. His chief interest was the linguistic aspects of the early English written tradition, but while he studied classic works of the past, he was creating a set of his own.",
+    "imageSrc": "https://images.gr-assets.com/books/1330855500l/13510444.jpg",
+    "isbn10": null,
+    "isbn13": null,
+    "asin10": "B007978OY6",
+    "externalUrl": null,
+    "pages": 1220,
     "rating": {
-      "value": "2.800",
-      "weight": 36,
-      "scale": 10
+      "value": "4.49",
+      "weight": 497395,
+      "scale": 5
     },
-    "releasedYear": 2000,
-    "releasedMonth": null,
-    "releasedDay": null,
-    "category": "TV Series"
+    "releasedYear": 2012,
+    "releasedMonth": 2,
+    "releasedDay": 15,
+    "firstReleasedYear": 1955,
+    "firstReleasedMonth": 10,
+    "firstReleasedDay": 20
   }
 }
 
@@ -344,8 +311,8 @@ $query_parameters = [
         </thead>
         <tbody>
             <tr>
-                <td>id, name, slug, imageSrc</td>
-                <td>id, name, description, imageSrc, season, episode, duration, contentRating, metascore, locations, keywords, awards, rating, releasedYear, releasedMonth, releasedDay, episodeParent, slug, category</td>
+                <td>id, name, slug</td>
+                <td>id, name, description, imageSrc, isbn10, isbn13, asin10, externalUrl, pages, rating, releasedYear, releasedMonth, releasedDay, firstReleasedYear, firstReleasedMonth, firstReleasedDay, slug, format, language</td>
             </tr>
         </tbody>
     </table>
@@ -360,21 +327,15 @@ $query_parameters = [
 <?php
 $query_parameters = [
     'item' => [
-        'id' => 587,
-        'entity' => 'Title',
+        'id' => 2,
+        'entity' => 'Book',
         'relations' => [
-            'cast' =>  ['parameters' => ['limit' => 1]],
-            'companies' => ['parameters' => ['limit' => 1]],
-            'countries' =>  ['parameters' => ['limit' => 2],],
-            'languages' =>  ['parameters' => ['limit' => 1],],
-            'externalSites' =>  ['parameters' => ['limit' => 1]],
-            'genres' =>  ['parameters' => ['limit' => 1]],
-            'photos' =>  ['parameters' => ['limit' => 1]],
-            'reviews' =>  ['parameters' => ['limit' => 1]],
-            'plotSummaries' =>  ['parameters' => ['limit' => 1]],
-            'trivia' =>  ['parameters' => ['limit' => 1]],
-            'videos' =>  ['parameters' => ['limit' => 1]],
-            'trailer' =>  ['parameters' => ['limit' => 1]],
+            'awards' =>  ['parameters' => ['limit' => 1]],
+            'characters' => ['parameters' => ['limit' => 1]],
+            'genres' =>  ['parameters' => ['limit' => 2]],
+            'persons' =>  ['parameters' => ['limit' => 1]],
+            'places' =>  ['parameters' => ['limit' => 1]],
+            'series' =>  ['parameters' => ['limit' => 1]],
         ],
     ],
 ];
@@ -388,71 +349,49 @@ $query_parameters = [
 ```json
 {
   "item": {
-    "id": 587,
-    "name": "Entertainers with Byron Allen",
-    "slug": "entertainers-with-byron-allen",
-    "imageSrc": "https://m.media-amazon.com/images/M/MV5BMWFlM2IwNmItZjRhMS00NDk2LTlhNzgtZjczNDFlN2MzYzEzXkEyXkFqcGdeQXVyMzk3NDAxMzk@._V1_UY268_CR12,0,182,268_AL_.jpg",
-    "cast": [
-      {
-        "role": "star",
-        "characterName": null,
-        "person": {
-          "id": 1756,
-          "name": "Emily Blunt"
-        }
-      }
-    ],
-    "companies": [],
-    "countries": [
+    "id": 2,
+    "name": "The Lord of the Rings",
+    "slug": "the-lord-of-the-rings",
+    "awards": [
       {
         "id": 1,
-        "name": "USA",
-        "code": "US"
+        "name": "Hugo Award Nominee for Best All-Time Series (1966)"
       }
     ],
-    "languages": [
+    "characters": [
       {
-        "id": 74,
-        "name": "English",
-        "code": "en"
+        "id": 1,
+        "name": "Frodo Baggins"
       }
     ],
-    "externalSites": [],
     "genres": [
       {
-        "id": 14,
-        "name": "Documentary"
-      }
-    ],
-    "photos": [
+        "id": 1,
+        "name": "Fantasy"
+      },
       {
-        "id": 1462,
-        "name": "Entertainers with Byron Allen (2000)",
-        "imageSrc": "https://m.media-amazon.com/images/M/MV5BNzdlM2RlNTQtZDA5OC00NDRjLWIwMTYtY2M5MTliMmVmMGNlXkEyXkFqcGdeQXVyMzk3NDAxMzk@._V1_UY99_CR25,0,99,99_AL_.jpg"
+        "id": 2,
+        "name": "Classics"
       }
     ],
-    "reviews": [
+    "persons": [
       {
-        "id": 8795,
-        "name": "It's 3am ...",
-        "content": "I can't sleep, so I'm flipping the dial and see this dude that looks a lot like Byron Allen but the guy's head is shaved and the show is called \"Entertainment Studios.com\". HUH?? Was I having a nightmare or was this dreck actually being broadcast?The show's entire content is made up of promo interviews provided by the studios, along with movie trailers, bad comics, and music videos. Between the cheesy music, the obsolete graphics, Allen as host, his wife(?)as producer, and the aforementioned filler, what's the budget...about $47.26 an episode?I somehow stumbled through the entire program and SWEAR that Allen said \"Comin' up neeeeext\" prior to every commercial break. Wasn't this guy a comedian at one point in his career? How about some original material, fella?? Anyway, if you want a belly laugh, stay with the show until the end credits and you will be rewarded with a can't miss REALLY bad edit as the music loop runs out. Maybe Byron does the sound editing as well to save a few more bucks?? This really IS syndicated programming at its worst. I'd prefer watching \"Conversation with Fred Lewis\" a 1980's infomercial for New Generation hair growth shampoo...",
-        "category": "reviews",
-        "rating": {
-          "value": "0.727",
-          "weight": 22,
-          "scale": 1
-        },
-        "titleRating": {
-          "value": "1.000",
-          "weight": 1,
-          "scale": 10
-        }
+        "id": 1,
+        "name": "J.R.R. Tolkien"
       }
     ],
-    "plotSummaries": [],
-    "trivia": [],
-    "videos": [],
-    "trailer": []
+    "places": [
+      {
+        "id": 1,
+        "name": "Middle-earth"
+      }
+    ],
+    "series": [
+      {
+        "id": 1,
+        "name": "Middle-Earth Universe"
+      }
+    ]
   }
 }
 
@@ -467,25 +406,7 @@ $query_parameters = [
             <th>Description</th>
         </tr>
                     <tr>
-                <td>cast</td>
-                <td>
-                                                                            <div><span>**Name:** </span>limit</div>
-    <div><span>**Required:** </span> yes </div>
-    <div><span>**Type:** </span>int</div>
-    <div><span>**Max value:** </span>20</div>
-    
-                                                            </td>
-                <td>
-                                                <div><span>**Default:** </span>role, characterName, person</div>
-    <div><span>**Valid Options:** </span>role, characterName, person</div>
-
-                                    </td>
-                <td>
-                    list of cast
-                </td>
-            </tr>
-                    <tr>
-                <td>companies</td>
+                <td>awards</td>
                 <td>
                                                                             <div><span>**Name:** </span>limit</div>
     <div><span>**Required:** </span> yes </div>
@@ -499,61 +420,25 @@ $query_parameters = [
 
                                     </td>
                 <td>
-                    list of companies
+                    list of awards
                 </td>
             </tr>
                     <tr>
-                <td>countries</td>
+                <td>characters</td>
                 <td>
                                                                             <div><span>**Name:** </span>limit</div>
     <div><span>**Required:** </span> yes </div>
     <div><span>**Type:** </span>int</div>
-    <div><span>**Max value:** </span>5</div>
+    <div><span>**Max value:** </span>20</div>
     
                                                             </td>
                 <td>
-                                                <div><span>**Default:** </span>id, name, code</div>
-    <div><span>**Valid Options:** </span>id, name, code</div>
+                                                <div><span>**Default:** </span>id, name</div>
+    <div><span>**Valid Options:** </span>id, name</div>
 
                                     </td>
                 <td>
-                    list of countries
-                </td>
-            </tr>
-                    <tr>
-                <td>languages</td>
-                <td>
-                                                                            <div><span>**Name:** </span>limit</div>
-    <div><span>**Required:** </span> yes </div>
-    <div><span>**Type:** </span>int</div>
-    <div><span>**Max value:** </span>5</div>
-    
-                                                            </td>
-                <td>
-                                                <div><span>**Default:** </span>id, name, code</div>
-    <div><span>**Valid Options:** </span>id, name, code</div>
-
-                                    </td>
-                <td>
-                    list of languages
-                </td>
-            </tr>
-                    <tr>
-                <td>externalSites</td>
-                <td>
-                                                                            <div><span>**Name:** </span>limit</div>
-    <div><span>**Required:** </span> yes </div>
-    <div><span>**Type:** </span>int</div>
-    <div><span>**Max value:** </span>5</div>
-    
-                                                            </td>
-                <td>
-                                                <div><span>**Default:** </span>id, name, cloakedUrl</div>
-    <div><span>**Valid Options:** </span>id, name, cloakedUrl</div>
-
-                                    </td>
-                <td>
-                    list of external sites
+                    list of characters
                 </td>
             </tr>
                     <tr>
@@ -575,7 +460,7 @@ $query_parameters = [
                 </td>
             </tr>
                     <tr>
-                <td>photos</td>
+                <td>persons</td>
                 <td>
                                                                             <div><span>**Name:** </span>limit</div>
     <div><span>**Required:** </span> yes </div>
@@ -584,16 +469,16 @@ $query_parameters = [
     
                                                             </td>
                 <td>
-                                                <div><span>**Default:** </span>id, name, imageSrc</div>
-    <div><span>**Valid Options:** </span>id, name, imageSrc</div>
+                                                <div><span>**Default:** </span>id, name</div>
+    <div><span>**Valid Options:** </span>id, name, imageSrc, description, followers</div>
 
                                     </td>
                 <td>
-                    list of photos
+                    list of persons
                 </td>
             </tr>
                     <tr>
-                <td>reviews</td>
+                <td>places</td>
                 <td>
                                                                             <div><span>**Name:** </span>limit</div>
     <div><span>**Required:** </span> yes </div>
@@ -602,16 +487,16 @@ $query_parameters = [
     
                                                             </td>
                 <td>
-                                                <div><span>**Default:** </span>id, name, content, category, rating, titleRating</div>
-    <div><span>**Valid Options:** </span>id, name, content, category, rating, titleRating</div>
+                                                <div><span>**Default:** </span>id, name</div>
+    <div><span>**Valid Options:** </span>id, name</div>
 
                                     </td>
                 <td>
-                    list of reviews
+                    list of places
                 </td>
             </tr>
                     <tr>
-                <td>videos</td>
+                <td>series</td>
                 <td>
                                                                             <div><span>**Name:** </span>limit</div>
     <div><span>**Required:** </span> yes </div>
@@ -620,66 +505,12 @@ $query_parameters = [
     
                                                             </td>
                 <td>
-                                                <div><span>**Default:** </span>id, externalId, name, category, duration, imageSrc</div>
-    <div><span>**Valid Options:** </span>id, externalId, name, category, duration, imageSrc</div>
+                                                <div><span>**Default:** </span>id, name</div>
+    <div><span>**Valid Options:** </span>id, name</div>
 
                                     </td>
                 <td>
-                    list of videos
-                </td>
-            </tr>
-                    <tr>
-                <td>trailer</td>
-                <td>
-                                                                            <div><span>**Name:** </span>limit</div>
-    <div><span>**Required:** </span> yes </div>
-    <div><span>**Type:** </span>int</div>
-    <div><span>**Max value:** </span>5</div>
-    
-                                                            </td>
-                <td>
-                                                <div><span>**Default:** </span>id, externalId, name, category, duration, imageSrc</div>
-    <div><span>**Valid Options:** </span>id, externalId, name, category, duration, imageSrc</div>
-
-                                    </td>
-                <td>
-                    list of trailers
-                </td>
-            </tr>
-                    <tr>
-                <td>plotSummaries</td>
-                <td>
-                                                                            <div><span>**Name:** </span>limit</div>
-    <div><span>**Required:** </span> yes </div>
-    <div><span>**Type:** </span>int</div>
-    <div><span>**Max value:** </span>5</div>
-    
-                                                            </td>
-                <td>
-                                                <div><span>**Default:** </span>id, name, content, category, rating, titleRating</div>
-    <div><span>**Valid Options:** </span>id, name, content, category, rating, titleRating</div>
-
-                                    </td>
-                <td>
-                    list of plot summaries
-                </td>
-            </tr>
-                    <tr>
-                <td>trivia</td>
-                <td>
-                                                                            <div><span>**Name:** </span>limit</div>
-    <div><span>**Required:** </span> yes </div>
-    <div><span>**Type:** </span>int</div>
-    <div><span>**Max value:** </span>5</div>
-    
-                                                            </td>
-                <td>
-                                                <div><span>**Default:** </span>id, name, content, category, rating, titleRating</div>
-    <div><span>**Valid Options:** </span>id, name, content, category, rating, titleRating</div>
-
-                                    </td>
-                <td>
-                    list of trivia
+                    list of series
                 </td>
             </tr>
             </table>
@@ -696,15 +527,10 @@ $query_parameters = [
 <?php
 $query_parameters = [
     'item' => [
-        'id' => 587,
-        'entity' => 'Title',
+        'id' => 2,
+        'entity' => 'Book',
         'methods' => [
-            ['function' => 'otherTitles', 'parameters' => ['limit' => 1], 'properties' => ['imageSrc']],
-            ['function' => 'randomDescription'],
-            ['function' => 'listSeasons', ],
-            ['function' => 'listSeasonsWithEpisodes', ],
-            ['function' => 'nextEpisode', 'properties' => ['season', 'episode']],
-            ['function' => 'previousEpisode', 'properties' => ['season', 'episode']],
+            ['function' => 'otherBooks', 'parameters' => ['limit' => 1], 'properties' => ['imageSrc', 'isbn10', 'isbn13', 'asin10',]],
         ],
     ],
 ];
@@ -718,119 +544,20 @@ $query_parameters = [
 ```json
 {
   "item": {
-    "id": 587,
-    "name": "Entertainers with Byron Allen",
-    "slug": "entertainers-with-byron-allen",
-    "imageSrc": "https://m.media-amazon.com/images/M/MV5BMWFlM2IwNmItZjRhMS00NDk2LTlhNzgtZjczNDFlN2MzYzEzXkEyXkFqcGdeQXVyMzk3NDAxMzk@._V1_UY268_CR12,0,182,268_AL_.jpg",
-    "otherTitles": [
+    "id": 2,
+    "name": "The Lord of the Rings",
+    "slug": "the-lord-of-the-rings",
+    "otherBooks": [
       {
-        "id": 654,
-        "name": "2000 Blockbuster Entertainment Awards",
-        "slug": "2000-blockbuster-entertainment-awards",
-        "imageSrc": null
+        "id": 3,
+        "name": "The Lord of the Rings",
+        "slug": "the-lord-of-the-rings",
+        "imageSrc": "https://images.gr-assets.com/books/1296933438l/15350.jpg",
+        "isbn10": null,
+        "isbn13": null,
+        "asin10": null
       }
-    ],
-    "randomDescription": "I can't sleep, so I'm flipping the dial and see this dude that looks a lot like Byron Allen but the guy's head is shaved and the show is called \"Entertainment Studios.com\". HUH?? Was I having a nightmare or was this dreck actually being broadcast?The show's entire content is made up of promo interviews provided by the studios, along with movie trailers, bad comics, and music videos. Between the cheesy music, the obsolete graphics, Allen as host, his wife(?)as producer, and the aforementioned filler, what's the budget...about $47.26 an episode?I somehow stumbled through the entire program and SWEAR that Allen said \"Comin' up neeeeext\" prior to every commercial break. Wasn't this guy a comedian at one point in his career? How about some original material, fella?? Anyway, if you want a belly laugh, stay with the show until the end credits and you will be rewarded with a can't miss REALLY bad edit as the music loop runs out. Maybe Byron does the sound editing as well to save a few more bucks?? This really IS syndicated programming at its worst. I'd prefer watching \"Conversation with Fred Lewis\" a 1980's infomercial for New Generation hair growth shampoo...",
-    "listSeasons": [
-      "-1",
-      "25"
-    ],
-    "listSeasonsWithEpisodes": {
-      "25": [
-        {
-          "id": 98106,
-          "name": "Episode #25.4",
-          "slug": "episode-25-4",
-          "imageSrc": null,
-          "season": 25,
-          "episode": 4
-        }
-      ],
-      "-1": [
-        {
-          "id": 265482,
-          "name": "Episode dated 31 March 2008",
-          "slug": "episode-dated-31-march-2008",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        },
-        {
-          "id": 196155,
-          "name": "Episode dated 6 October 2012",
-          "slug": "episode-dated-6-october-2012",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        },
-        {
-          "id": 159863,
-          "name": "Episode dated 29 January 2000",
-          "slug": "episode-dated-29-january-2000",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        },
-        {
-          "id": 368517,
-          "name": "Episode dated 7 November 2016",
-          "slug": "episode-dated-7-november-2016",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        },
-        {
-          "id": 368518,
-          "name": "Episode dated 31 October 2016",
-          "slug": "episode-dated-31-october-2016",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        },
-        {
-          "id": 50342,
-          "name": "Episode dated 11 March 2013",
-          "slug": "episode-dated-11-march-2013",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        },
-        {
-          "id": 2874580,
-          "name": "Episode dated 17 December 2011",
-          "slug": "episode-dated-17-december-2011",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        },
-        {
-          "id": 2874583,
-          "name": "Episode dated 12 November 2011",
-          "slug": "episode-dated-12-november-2011",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        },
-        {
-          "id": 259040,
-          "name": "Episode dated 18 February 2012",
-          "slug": "episode-dated-18-february-2012",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        },
-        {
-          "id": 32762,
-          "name": "Episode dated 11 June 2012",
-          "slug": "episode-dated-11-june-2012",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        }
-      ]
-    },
-    "nextEpisode": null,
-    "previousEpisode": null
+    ]
   }
 }
 
@@ -845,7 +572,7 @@ $query_parameters = [
             <th>Description</th>
         </tr>
                     <tr>
-                <td>otherTitles</td>
+                <td>otherBooks</td>
                 <td>
                                                                             <div><span>**Name:** </span>limit</div>
     <div><span>**Required:** </span> yes </div>
@@ -854,78 +581,12 @@ $query_parameters = [
     
                                                             </td>
                 <td>
-                                                <div><span>**Default:** </span>id, name, slug, imageSrc</div>
-    <div><span>**Valid Options:** </span>id, name, description, imageSrc, season, episode, duration, contentRating, metascore, locations, keywords, awards, rating, releasedYear, releasedMonth, releasedDay, episodeParent, slug, category</div>
+                                                <div><span>**Default:** </span>id, name, slug</div>
+    <div><span>**Valid Options:** </span>id, name, description, imageSrc, isbn10, isbn13, asin10, externalUrl, pages, rating, releasedYear, releasedMonth, releasedDay, firstReleasedYear, firstReleasedMonth, firstReleasedDay, slug, format, language</div>
 
                                     </td>
                 <td>
                     other titles based on major title
-                </td>
-            </tr>
-                    <tr>
-                <td>randomDescription</td>
-                <td>
-                                            None.
-                                    </td>
-                <td>
-                                            None.
-                                    </td>
-                <td>
-                    generate random description
-                </td>
-            </tr>
-                    <tr>
-                <td>listSeasons</td>
-                <td>
-                                            None.
-                                    </td>
-                <td>
-                                            None.
-                                    </td>
-                <td>
-                    list of seasons if major entity is a tv show
-                </td>
-            </tr>
-                    <tr>
-                <td>listSeasonsWithEpisodes</td>
-                <td>
-                                            None.
-                                    </td>
-                <td>
-                                                <div><span>**Default:** </span>id, name, slug, imageSrc</div>
-    <div><span>**Valid Options:** </span>id, name, description, imageSrc, season, episode, duration, contentRating, metascore, locations, keywords, awards, rating, releasedYear, releasedMonth, releasedDay, episodeParent, slug, category</div>
-
-                                    </td>
-                <td>
-                    list of seasons with episodes as objects
-                </td>
-            </tr>
-                    <tr>
-                <td>nextEpisode</td>
-                <td>
-                                            None.
-                                    </td>
-                <td>
-                                                <div><span>**Default:** </span>id, name, slug, imageSrc</div>
-    <div><span>**Valid Options:** </span>id, name, description, imageSrc, season, episode, duration, contentRating, metascore, locations, keywords, awards, rating, releasedYear, releasedMonth, releasedDay, episodeParent, slug, category</div>
-
-                                    </td>
-                <td>
-                    next episode if major entity is episode
-                </td>
-            </tr>
-                    <tr>
-                <td>previousEpisode</td>
-                <td>
-                                            None.
-                                    </td>
-                <td>
-                                                <div><span>**Default:** </span>id, name, slug, imageSrc</div>
-    <div><span>**Valid Options:** </span>id, name, description, imageSrc, season, episode, duration, contentRating, metascore, locations, keywords, awards, rating, releasedYear, releasedMonth, releasedDay, episodeParent, slug, category</div>
-
-                                    </td>
-                <td>
-                    previous episode if major entity is episode
                 </td>
             </tr>
             </table>
@@ -934,46 +595,34 @@ $query_parameters = [
 
 
 
-### Full Example (title)
+### Full Example (book)
 > Request:
 
 ```php
 <?php
 $query_parameters = [
     'item' => [
-        'id' => 587,
-        'entity' => 'Title',
+        'id' => 2,
+        'entity' => 'Book',
         'properties' => [
-            'description', 'imageSrc', 'season', 'episode', 'duration', 'contentRating', 'metascore',
-            'locations','keywords', 'awards', 'rating', 'releasedYear', 'releasedMonth', 'releasedDay','category',
+            'id', 'name', 'description', 'imageSrc', 'isbn10', 'isbn13', 'asin10', 'externalUrl', 'pages', 'rating',
+            'releasedYear', 'releasedMonth', 'releasedDay', 'firstReleasedYear', 'firstReleasedMonth', 'firstReleasedDay', 'slug',
         ],
         'relations' => [
-            'cast' =>  ['parameters' => ['limit' => 1]],
-            'companies' => ['parameters' => ['limit' => 1]],
-            'countries' =>  ['parameters' => ['limit' => 1],],
-            'languages' =>  ['parameters' => ['limit' => 1],],
-            'externalSites' =>  ['parameters' => ['limit' => 1]],
-            'genres' =>  ['parameters' => ['limit' => 1]],
-            'photos' =>  ['parameters' => ['limit' => 1]],
-            'reviews' =>  ['parameters' => ['limit' => 1]],
-            'plotSummaries' =>  ['parameters' => ['limit' => 1]],
-            'trivia' =>  ['parameters' => ['limit' => 1]],
-            'videos' =>  ['parameters' => ['limit' => 1]],
-            'trailer' =>  ['parameters' => ['limit' => 1]],
+            'awards' =>  ['parameters' => ['limit' => 1]],
+            'characters' => ['parameters' => ['limit' => 1]],
+            'genres' =>  ['parameters' => ['limit' => 2]],
+            'persons' =>  ['parameters' => ['limit' => 1]],
+            'places' =>  ['parameters' => ['limit' => 1]],
+            'series' =>  ['parameters' => ['limit' => 1]],
         ],
         'methods' => [
-            ['function' => 'otherTitles', 'parameters' => ['limit' => 1], 'properties' => ['imageSrc']],
-            ['function' => 'randomDescription'],
-            ['function' => 'listSeasons', ],
-            ['function' => 'listSeasonsWithEpisodes', ],
-            ['function' => 'nextEpisode', 'properties' => ['season', 'episode']],
-            ['function' => 'previousEpisode', 'properties' => ['season', 'episode']],
+            ['function' => 'otherBooks', 'parameters' => ['limit' => 1], 'properties' => ['imageSrc', 'isbn10', 'isbn13', 'asin10',]],
         ],
     ],
     'extra' => [
-        ['function' => 'popularTitles', 'parameters' => ['limit' => 1], 'properties' => ['imageSrc']],
-        ['function' => 'latestTitles', 'parameters' => ['limit' => 1], 'properties' => ['imageSrc']],
-        ['function' => 'latestEpisodes', 'parameters' => ['limit' => 1], 'properties' => ['episodeParent']],
+        ['function' => 'popularBooks', 'parameters' => ['limit' => 1], 'properties' => ['imageSrc']],
+        ['function' => 'latestBooks', 'parameters' => ['limit' => 2], 'properties' => ['imageSrc', 'pages']],
     ],
 ];
 $api_key = YOURAPIKEY;
@@ -993,228 +642,102 @@ $response = $httpClient->request('GET', 'https://admin.bunny-holding.com/api', [
 ```json
 {
   "item": {
-    "id": 587,
-    "name": "Entertainers with Byron Allen",
-    "slug": "entertainers-with-byron-allen",
-    "imageSrc": "https://m.media-amazon.com/images/M/MV5BMWFlM2IwNmItZjRhMS00NDk2LTlhNzgtZjczNDFlN2MzYzEzXkEyXkFqcGdeQXVyMzk3NDAxMzk@._V1_UY268_CR12,0,182,268_AL_.jpg",
-    "description": null,
-    "season": null,
-    "episode": null,
-    "duration": null,
-    "contentRating": null,
-    "metascore": null,
-    "locations": [],
-    "keywords": [],
-    "awards": [],
+    "id": 2,
+    "name": "The Lord of the Rings",
+    "slug": "the-lord-of-the-rings",
+    "description": "One Ring to rule them all, One Ring to find them, One Ring to bring them all and in the darkness bind them<br><br>In ancient times the Rings of Power were crafted by the Elven-smiths, and Sauron, the Dark Lord, forged the One Ring, filling it with his own power so that he could rule all others. But the One Ring was taken from him, and though he sought it throughout Middle-earth, it remained lost to him. After many ages it fell by chance into the hands of the hobbit Bilbo Baggins.<br><br>From Sauron's fastness in the Dark Tower of Mordor, his power spread far and wide. Sauron gathered all the Great Rings to him, but always he searched for the One Ring that would complete his dominion.<br><br>When Bilbo reached his eleventy-first birthday he disappeared, bequeathing to his young cousin Frodo the Ruling Ring and a perilous quest: to journey across Middle-earth, deep into the shadow of the Dark Lord, and destroy the Ring by casting it into the Cracks of Doom.<br><br>The Lord of the Rings tells of the great quest undertaken by Frodo and the Fellowship of the Ring: Gandalf the Wizard; the hobbits Merry, Pippin, and Sam; Gimli the Dwarf; Legolas the Elf; Boromir of Gondor; and a tall, mysterious stranger called Strider.<br><br>This new edition includes the fiftieth-anniversary fully corrected text setting and, for the first time, an extensive new index.<br><br>J.R.R. Tolkien (1892-1973), beloved throughout the world as the creator of The Hobbit, The Lord of the Rings, and The Silmarillion, was a professor of Anglo-Saxon at Oxford, a fellow of Pembroke College, and a fellow of Merton College until his retirement in 1959. His chief interest was the linguistic aspects of the early English written tradition, but while he studied classic works of the past, he was creating a set of his own.",
+    "imageSrc": "https://images.gr-assets.com/books/1330855500l/13510444.jpg",
+    "isbn10": null,
+    "isbn13": null,
+    "asin10": "B007978OY6",
+    "externalUrl": null,
+    "pages": 1220,
     "rating": {
-      "value": "2.800",
-      "weight": 36,
-      "scale": 10
+      "value": "4.49",
+      "weight": 497395,
+      "scale": 5
     },
-    "releasedYear": 2000,
-    "releasedMonth": null,
-    "releasedDay": null,
-    "category": "TV Series",
-    "cast": [
-      {
-        "role": "star",
-        "characterName": null,
-        "person": {
-          "id": 1756,
-          "name": "Emily Blunt"
-        }
-      }
-    ],
-    "companies": [],
-    "countries": [
+    "releasedYear": 2012,
+    "releasedMonth": 2,
+    "releasedDay": 15,
+    "firstReleasedYear": 1955,
+    "firstReleasedMonth": 10,
+    "firstReleasedDay": 20,
+    "awards": [
       {
         "id": 1,
-        "name": "USA",
-        "code": "US"
+        "name": "Hugo Award Nominee for Best All-Time Series (1966)"
       }
     ],
-    "languages": [
+    "characters": [
       {
-        "id": 74,
-        "name": "English",
-        "code": "en"
+        "id": 1,
+        "name": "Frodo Baggins"
       }
     ],
-    "externalSites": [],
     "genres": [
       {
-        "id": 14,
-        "name": "Documentary"
-      }
-    ],
-    "photos": [
+        "id": 1,
+        "name": "Fantasy"
+      },
       {
-        "id": 1462,
-        "name": "Entertainers with Byron Allen (2000)",
-        "imageSrc": "https://m.media-amazon.com/images/M/MV5BNzdlM2RlNTQtZDA5OC00NDRjLWIwMTYtY2M5MTliMmVmMGNlXkEyXkFqcGdeQXVyMzk3NDAxMzk@._V1_UY99_CR25,0,99,99_AL_.jpg"
+        "id": 2,
+        "name": "Classics"
       }
     ],
-    "reviews": [
+    "persons": [
       {
-        "id": 8795,
-        "name": "It's 3am ...",
-        "content": "I can't sleep, so I'm flipping the dial and see this dude that looks a lot like Byron Allen but the guy's head is shaved and the show is called \"Entertainment Studios.com\". HUH?? Was I having a nightmare or was this dreck actually being broadcast?The show's entire content is made up of promo interviews provided by the studios, along with movie trailers, bad comics, and music videos. Between the cheesy music, the obsolete graphics, Allen as host, his wife(?)as producer, and the aforementioned filler, what's the budget...about $47.26 an episode?I somehow stumbled through the entire program and SWEAR that Allen said \"Comin' up neeeeext\" prior to every commercial break. Wasn't this guy a comedian at one point in his career? How about some original material, fella?? Anyway, if you want a belly laugh, stay with the show until the end credits and you will be rewarded with a can't miss REALLY bad edit as the music loop runs out. Maybe Byron does the sound editing as well to save a few more bucks?? This really IS syndicated programming at its worst. I'd prefer watching \"Conversation with Fred Lewis\" a 1980's infomercial for New Generation hair growth shampoo...",
-        "category": "reviews",
-        "rating": {
-          "value": "0.727",
-          "weight": 22,
-          "scale": 1
-        },
-        "titleRating": {
-          "value": "1.000",
-          "weight": 1,
-          "scale": 10
-        }
+        "id": 1,
+        "name": "J.R.R. Tolkien"
       }
     ],
-    "plotSummaries": [],
-    "trivia": [],
-    "videos": [],
-    "trailer": [],
-    "otherTitles": [
+    "places": [
       {
-        "id": 654,
-        "name": "2000 Blockbuster Entertainment Awards",
-        "slug": "2000-blockbuster-entertainment-awards",
-        "imageSrc": null
+        "id": 1,
+        "name": "Middle-earth"
       }
     ],
-    "randomDescription": "I can't sleep, so I'm flipping the dial and see this dude that looks a lot like Byron Allen but the guy's head is shaved and the show is called \"Entertainment Studios.com\". HUH?? Was I having a nightmare or was this dreck actually being broadcast?The show's entire content is made up of promo interviews provided by the studios, along with movie trailers, bad comics, and music videos. Between the cheesy music, the obsolete graphics, Allen as host, his wife(?)as producer, and the aforementioned filler, what's the budget...about $47.26 an episode?I somehow stumbled through the entire program and SWEAR that Allen said \"Comin' up neeeeext\" prior to every commercial break. Wasn't this guy a comedian at one point in his career? How about some original material, fella?? Anyway, if you want a belly laugh, stay with the show until the end credits and you will be rewarded with a can't miss REALLY bad edit as the music loop runs out. Maybe Byron does the sound editing as well to save a few more bucks?? This really IS syndicated programming at its worst. I'd prefer watching \"Conversation with Fred Lewis\" a 1980's infomercial for New Generation hair growth shampoo...",
-    "listSeasons": [
-      "-1",
-      "25"
+    "series": [
+      {
+        "id": 1,
+        "name": "Middle-Earth Universe"
+      }
     ],
-    "listSeasonsWithEpisodes": {
-      "25": [
-        {
-          "id": 98106,
-          "name": "Episode #25.4",
-          "slug": "episode-25-4",
-          "imageSrc": null,
-          "season": 25,
-          "episode": 4
-        }
-      ],
-      "-1": [
-        {
-          "id": 265482,
-          "name": "Episode dated 31 March 2008",
-          "slug": "episode-dated-31-march-2008",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        },
-        {
-          "id": 196155,
-          "name": "Episode dated 6 October 2012",
-          "slug": "episode-dated-6-october-2012",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        },
-        {
-          "id": 159863,
-          "name": "Episode dated 29 January 2000",
-          "slug": "episode-dated-29-january-2000",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        },
-        {
-          "id": 368517,
-          "name": "Episode dated 7 November 2016",
-          "slug": "episode-dated-7-november-2016",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        },
-        {
-          "id": 368518,
-          "name": "Episode dated 31 October 2016",
-          "slug": "episode-dated-31-october-2016",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        },
-        {
-          "id": 50342,
-          "name": "Episode dated 11 March 2013",
-          "slug": "episode-dated-11-march-2013",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        },
-        {
-          "id": 2874580,
-          "name": "Episode dated 17 December 2011",
-          "slug": "episode-dated-17-december-2011",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        },
-        {
-          "id": 2874583,
-          "name": "Episode dated 12 November 2011",
-          "slug": "episode-dated-12-november-2011",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        },
-        {
-          "id": 259040,
-          "name": "Episode dated 18 February 2012",
-          "slug": "episode-dated-18-february-2012",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        },
-        {
-          "id": 32762,
-          "name": "Episode dated 11 June 2012",
-          "slug": "episode-dated-11-june-2012",
-          "imageSrc": null,
-          "season": null,
-          "episode": null
-        }
-      ]
-    },
-    "nextEpisode": null,
-    "previousEpisode": null
+    "otherBooks": [
+      {
+        "id": 3,
+        "name": "The Lord of the Rings",
+        "slug": "the-lord-of-the-rings",
+        "imageSrc": "https://images.gr-assets.com/books/1296933438l/15350.jpg",
+        "isbn10": null,
+        "isbn13": null,
+        "asin10": null
+      }
+    ]
   },
   "extra": {
-    "popularTitles": [
+    "popularBooks": [
       {
-        "id": 587,
-        "name": "Entertainers with Byron Allen",
-        "slug": "entertainers-with-byron-allen",
-        "imageSrc": "https://m.media-amazon.com/images/M/MV5BMWFlM2IwNmItZjRhMS00NDk2LTlhNzgtZjczNDFlN2MzYzEzXkEyXkFqcGdeQXVyMzk3NDAxMzk@._V1_UY268_CR12,0,182,268_AL_.jpg"
+        "id": 1,
+        "name": "The Lord of the Rings",
+        "slug": "the-lord-of-the-rings",
+        "imageSrc": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1547450792i/33.jpg"
       }
     ],
-    "latestTitles": [
+    "latestBooks": [
       {
-        "id": 4871906,
-        "name": "Ilox",
-        "slug": "ilox",
-        "imageSrc": null
-      }
-    ],
-    "latestEpisodes": [
+        "id": 1,
+        "name": "The Lord of the Rings",
+        "slug": "the-lord-of-the-rings",
+        "imageSrc": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1547450792i/33.jpg",
+        "pages": 1216
+      },
       {
-        "id": 4894909,
-        "name": "Episode dated 25 May 2005",
-        "slug": "episode-dated-25-may-2005",
-        "imageSrc": null,
-        "episodeParent": {
-          "id": 1066875,
-          "name": "El mundo en 24 horas",
-          "slug": "el-mundo-en-24-horas",
-          "imageSrc": null
-        }
+        "id": 2,
+        "name": "The Lord of the Rings",
+        "slug": "the-lord-of-the-rings",
+        "imageSrc": "https://images.gr-assets.com/books/1330855500l/13510444.jpg",
+        "pages": 1220
       }
     ]
   }
@@ -1222,7 +745,7 @@ $response = $httpClient->request('GET', 'https://admin.bunny-holding.com/api', [
 
 ```
 
-Working example with full configuration for title
+Working example with full configuration for book
 ## Item (person)
 > Request:
 
@@ -1230,7 +753,7 @@ Working example with full configuration for title
 <?php
 $query_parameters = [
     'item' => [
-        'id' => 25,
+        'id' => 1376,
         'entity' => 'Person',
     ],
 ];
@@ -1244,8 +767,8 @@ $query_parameters = [
 ```json
 {
   "item": {
-    "id": 25,
-    "name": "Jeté Laurence"
+    "id": 1376,
+    "name": "Stephen King"
   }
 }
 
@@ -1320,11 +843,10 @@ $query_parameters = [
 <?php
 $query_parameters = [
     'item' => [
-        'id' => 25,
+        'id' => 1376,
         'entity' => 'Person',
         'properties' => [
-            'id', 'name', 'imageSrc', 'description', 'birthYear', 'birthMonth', 'birthDay', 'birthPlace',
-            'deathYear', 'deathMonth', 'deathDay', 'deathPlace'
+            'id', 'name', 'imageSrc', 'description', 'followers'
         ],
     ],
 ];
@@ -1338,18 +860,11 @@ $query_parameters = [
 ```json
 {
   "item": {
-    "id": 25,
-    "name": "Jeté Laurence",
-    "imageSrc": "https://m.media-amazon.com/images/M/MV5BM2Q5NjA0ZTMtZWM4Yi00ZjkxLWIyNTYtMzcyYjBiMTdhNWI5XkEyXkFqcGdeQXVyNjg2NjQwMDQ@._V1_UY317_CR130,0,214,317_AL_.jpg",
-    "description": "Jeté Laurence is an actress, known for The Snowman (2017), The Americans (2013) and Jessica Jones (2015).",
-    "birthYear": null,
-    "birthMonth": null,
-    "birthDay": null,
-    "birthPlace": null,
-    "deathYear": null,
-    "deathMonth": null,
-    "deathDay": null,
-    "deathPlace": null
+    "id": 1376,
+    "name": "Stephen King",
+    "imageSrc": "https://images.gr-assets.com/authors/1362814142p3/3389.jpg",
+    "description": "Stephen Edwin King was born the second son of Donald and Nellie Ruth Pillsbury King. After his father left them when Stephen was two, he and his older brother, David, were raised by his mother. Parts of his childhood were spent in Fort Wayne, Indiana, where his father's family was at the time, and in Stratford, Connecticut. When Stephen was eleven, his mother brought her children back to Durham, Maine, for good. Her parents, Guy and Nellie Pillsbury, had become incapacitated with old age, and Ruth King was persuaded by her sisters to take over the physical care of them. Other family members provided a small house in Durham and financial support. After Stephen's grandparents passed away, Mrs. King found work in the kitchens of Pineland, a nearby residential facility for the mentally challenged.<br><br>Stephen attended the grammar school in Durham and Lisbon Falls High School, graduating in 1966. From his sophomore year at the University of Maine at Orono, he wrote a weekly column for the school newspaper, THE MAINE CAMPUS. He was also active in student politics, serving as a member of the Student Senate. He came to support the anti-war movement on the Orono campus, arriving at his stance from a conservative view that the war in Vietnam was unconstitutional. He graduated in 1970, with a B.A. in English and qualified to teach on the high school level. A draft board examination immediately post-graduation found him 4-F on grounds of high blood pressure, limited vision, flat feet, and punctured eardrums.<br><br>He met Tabitha Spruce in the stacks of the Fogler Library at the University, where they both worked as students; they married in January of 1971. As Stephen was unable to find placement as a teacher immediately, the Kings lived on his earnings as a laborer at an industrial laundry, and her student loan and savings, with an occasional boost from a short story sale to men's magazines.<br><br>Stephen made his first professional short story sale (\"The Glass Floor\") to Startling Mystery Stories in 1967. Throughout the early years of his marriage, he continued to sell stories to men's magazines. Many were gathered into the Night Shift collection or appeared in other anthologies.<br><br>In the fall of 1971, Stephen began teaching English at Hampden Academy, the public high school in Hampden, Maine. Writing in the evenings and on the weekends, he continued to produce short stories and to work on novels.",
+    "followers": 630580
   }
 }
 
@@ -1366,7 +881,7 @@ $query_parameters = [
         <tbody>
             <tr>
                 <td>id, name</td>
-                <td>id, name, imageSrc, description, birthYear, birthMonth, birthDay, birthPlace, deathYear, deathMonth, deathDay, deathPlace</td>
+                <td>id, name, imageSrc, description, followers</td>
             </tr>
         </tbody>
     </table>
@@ -1382,10 +897,10 @@ $query_parameters = [
 <?php
 $query_parameters = [
     'item' => [
-        'id' => 25,
+        'id' => 1376,
         'entity' => 'Person',
         'methods' => [
-            ['function' => 'otherTitles', 'parameters' => ['limit' => 1], 'properties' => ['imageSrc']],
+            ['function' => 'otherBooks', 'parameters' => ['limit' => 1], 'properties' => ['imageSrc', 'isbn10',]],
         ],
     ],
 ];
@@ -1399,9 +914,17 @@ $query_parameters = [
 ```json
 {
   "item": {
-    "id": 25,
-    "name": "Jeté Laurence",
-    "otherTitles": []
+    "id": 1376,
+    "name": "Stephen King",
+    "otherBooks": [
+      {
+        "id": 1376,
+        "name": "Pilgrim's Progress, Part 2: Christiana",
+        "slug": "pilgrim-s-progress-part-2-christiana",
+        "imageSrc": "https://images.gr-assets.com/books/1352964261l/1140624.jpg",
+        "isbn10": "0768422531"
+      }
+    ]
   }
 }
 
@@ -1416,7 +939,7 @@ $query_parameters = [
             <th>Description</th>
         </tr>
                     <tr>
-                <td>otherTitles</td>
+                <td>otherBooks</td>
                 <td>
                                                                             <div><span>**Name:** </span>limit</div>
     <div><span>**Required:** </span> yes </div>
@@ -1425,12 +948,12 @@ $query_parameters = [
     
                                                             </td>
                 <td>
-                                                <div><span>**Default:** </span>id, name, slug, imageSrc</div>
-    <div><span>**Valid Options:** </span>id, name, description, imageSrc, season, episode, duration, contentRating, metascore, locations, keywords, awards, rating, releasedYear, releasedMonth, releasedDay, episodeParent, slug, category</div>
+                                                <div><span>**Default:** </span>id, name, slug</div>
+    <div><span>**Valid Options:** </span>id, name, description, imageSrc, isbn10, isbn13, asin10, externalUrl, pages, rating, releasedYear, releasedMonth, releasedDay, firstReleasedYear, firstReleasedMonth, firstReleasedDay, slug, format, language</div>
 
                                     </td>
                 <td>
-                    titles from major person
+                    books from major person
                 </td>
             </tr>
             </table>
@@ -1446,15 +969,18 @@ $query_parameters = [
 <?php
 $query_parameters = [
     'item' => [
-        'id' => 25,
+        'id' => 1376,
         'entity' => 'Person',
         'methods' => [
-            ['function' => 'otherTitles', 'parameters' => ['limit' => 1], 'properties' => ['imageSrc']],
+            ['function' => 'otherBooks', 'parameters' => ['limit' => 1], 'properties' => ['imageSrc', 'isbn10',]],
         ],
         'properties' => [
-            'id', 'name', 'imageSrc', 'description', 'birthYear', 'birthMonth', 'birthDay', 'birthPlace',
-            'deathYear', 'deathMonth', 'deathDay', 'deathPlace'
+            'id', 'name', 'imageSrc', 'description', 'followers'
         ],
+    ],
+    'extra' => [
+        ['function' => 'popularBooks', 'parameters' => ['limit' => 1], 'properties' => ['imageSrc']],
+        ['function' => 'latestBooks', 'parameters' => ['limit' => 2], 'properties' => ['imageSrc', 'pages']],
     ],
 ];
 $api_key = YOURAPIKEY;
@@ -1474,19 +1000,46 @@ $response = $httpClient->request('GET', 'https://admin.bunny-holding.com/api', [
 ```json
 {
   "item": {
-    "id": 25,
-    "name": "Jeté Laurence",
-    "imageSrc": "https://m.media-amazon.com/images/M/MV5BM2Q5NjA0ZTMtZWM4Yi00ZjkxLWIyNTYtMzcyYjBiMTdhNWI5XkEyXkFqcGdeQXVyNjg2NjQwMDQ@._V1_UY317_CR130,0,214,317_AL_.jpg",
-    "description": "Jeté Laurence is an actress, known for The Snowman (2017), The Americans (2013) and Jessica Jones (2015).",
-    "birthYear": null,
-    "birthMonth": null,
-    "birthDay": null,
-    "birthPlace": null,
-    "deathYear": null,
-    "deathMonth": null,
-    "deathDay": null,
-    "deathPlace": null,
-    "otherTitles": []
+    "id": 1376,
+    "name": "Stephen King",
+    "imageSrc": "https://images.gr-assets.com/authors/1362814142p3/3389.jpg",
+    "description": "Stephen Edwin King was born the second son of Donald and Nellie Ruth Pillsbury King. After his father left them when Stephen was two, he and his older brother, David, were raised by his mother. Parts of his childhood were spent in Fort Wayne, Indiana, where his father's family was at the time, and in Stratford, Connecticut. When Stephen was eleven, his mother brought her children back to Durham, Maine, for good. Her parents, Guy and Nellie Pillsbury, had become incapacitated with old age, and Ruth King was persuaded by her sisters to take over the physical care of them. Other family members provided a small house in Durham and financial support. After Stephen's grandparents passed away, Mrs. King found work in the kitchens of Pineland, a nearby residential facility for the mentally challenged.<br><br>Stephen attended the grammar school in Durham and Lisbon Falls High School, graduating in 1966. From his sophomore year at the University of Maine at Orono, he wrote a weekly column for the school newspaper, THE MAINE CAMPUS. He was also active in student politics, serving as a member of the Student Senate. He came to support the anti-war movement on the Orono campus, arriving at his stance from a conservative view that the war in Vietnam was unconstitutional. He graduated in 1970, with a B.A. in English and qualified to teach on the high school level. A draft board examination immediately post-graduation found him 4-F on grounds of high blood pressure, limited vision, flat feet, and punctured eardrums.<br><br>He met Tabitha Spruce in the stacks of the Fogler Library at the University, where they both worked as students; they married in January of 1971. As Stephen was unable to find placement as a teacher immediately, the Kings lived on his earnings as a laborer at an industrial laundry, and her student loan and savings, with an occasional boost from a short story sale to men's magazines.<br><br>Stephen made his first professional short story sale (\"The Glass Floor\") to Startling Mystery Stories in 1967. Throughout the early years of his marriage, he continued to sell stories to men's magazines. Many were gathered into the Night Shift collection or appeared in other anthologies.<br><br>In the fall of 1971, Stephen began teaching English at Hampden Academy, the public high school in Hampden, Maine. Writing in the evenings and on the weekends, he continued to produce short stories and to work on novels.",
+    "followers": 630580,
+    "otherBooks": [
+      {
+        "id": 1376,
+        "name": "Pilgrim's Progress, Part 2: Christiana",
+        "slug": "pilgrim-s-progress-part-2-christiana",
+        "imageSrc": "https://images.gr-assets.com/books/1352964261l/1140624.jpg",
+        "isbn10": "0768422531"
+      }
+    ]
+  },
+  "extra": {
+    "popularBooks": [
+      {
+        "id": 1,
+        "name": "The Lord of the Rings",
+        "slug": "the-lord-of-the-rings",
+        "imageSrc": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1547450792i/33.jpg"
+      }
+    ],
+    "latestBooks": [
+      {
+        "id": 1,
+        "name": "The Lord of the Rings",
+        "slug": "the-lord-of-the-rings",
+        "imageSrc": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1547450792i/33.jpg",
+        "pages": 1216
+      },
+      {
+        "id": 2,
+        "name": "The Lord of the Rings",
+        "slug": "the-lord-of-the-rings",
+        "imageSrc": "https://images.gr-assets.com/books/1330855500l/13510444.jpg",
+        "pages": 1220
+      }
+    ]
   }
 }
 
