@@ -26,7 +26,7 @@ $httpClient = HttpClient::create([
     'headers' => ['X-AUTH-API' => $api_key],
 ]);
 
-$response = $httpClient->request('GET', 'https://admin.bunny-holding.com/api', ['query' => $query_parameters,]);
+$response = $httpClient->request('GET', 'https://affwebgen.com/api', ['query' => $query_parameters,]);
 
 ?>
 ```
@@ -34,12 +34,12 @@ $response = $httpClient->request('GET', 'https://admin.bunny-holding.com/api', [
 
 > Make sure to replace `YOURAPIKEY` with your API key and replace `QUERYPARAMETERS` with parameters as it is defined in API.
 
-Each project has different API key. Before making any request with your api key please be sure you configured allowed titles in [admin](https://admin.bunny-holding.com).
+Each project has different API key. Before making any request with your api key please be sure you configured allowed titles in [admin](https://affwebgen.com).
 
-To make any request use api url: <code>https://admin.bunny-holding.com/api</code> and send us <code>GET</code> request.
+To make any request use api url: <code>https://affwebgen.com/api</code> and send us <code>GET</code> request.
 
 <aside class="notice">
-    You must replace <code>YOURAPIKEY</code> with your API key from your project in [admin](https://admin.bunny-holding.com).
+    You must replace <code>YOURAPIKEY</code> with your API key from your project in [admin](https://affwebgen.com).
 </aside>
 
 # Query Parameters
@@ -631,7 +631,7 @@ $httpClient = HttpClient::create([
     'headers' => ['X-AUTH-API' => $api_key],
 ]);
 
-$response = $httpClient->request('GET', 'https://admin.bunny-holding.com/api', ['query' => $query_parameters,]);
+$response = $httpClient->request('GET', 'https://affwebgen.com/api', ['query' => $query_parameters,]);
 
 ?>
 ```
@@ -989,7 +989,7 @@ $httpClient = HttpClient::create([
     'headers' => ['X-AUTH-API' => $api_key],
 ]);
 
-$response = $httpClient->request('GET', 'https://admin.bunny-holding.com/api', ['query' => $query_parameters,]);
+$response = $httpClient->request('GET', 'https://affwebgen.com/api', ['query' => $query_parameters,]);
 
 ?>
 ```
