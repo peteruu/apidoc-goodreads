@@ -21,9 +21,10 @@ In examples we are using Symfony component called [The HttpClient Component](htt
 <?php
 $api_key = YOURAPIKEY;
 $query_parameters = QUERYPARAMETERS;
+$host = YOURDOMAIN;
 
 $httpClient = HttpClient::create([
-    'headers' => ['X-AUTH-API' => $api_key],
+    'headers' => ['X-AUTH-API' => $api_key, 'Referer' => $host],
 ]);
 
 $response = $httpClient->request('GET', 'https://affwebgen.com/api', ['query' => $query_parameters,]);
@@ -32,14 +33,14 @@ $response = $httpClient->request('GET', 'https://affwebgen.com/api', ['query' =>
 ```
 
 
-> Make sure to replace `YOURAPIKEY` with your API key and replace `QUERYPARAMETERS` with parameters as it is defined in API.
+> Make sure to replace `YOURAPIKEY` with your API key,  `QUERYPARAMETERS` with parameters as it is defined in API and YOURDOMAIN with domainname from which you will make requests for example asdf.com.
 
 Each project has different API key. Before making any request with your api key please be sure you configured allowed titles in [admin](https://affwebgen.com).
 
 To make any request use api url: <code>https://affwebgen.com/api</code> and send us <code>GET</code> request.
 
 <aside class="notice">
-    You must replace <code>YOURAPIKEY</code> with your API key from your project in [admin](https://affwebgen.com).
+    You must replace <code>YOURAPIKEY</code> with your API key  and <code>YOURDOMAIN</code> with your domain name from your project in admin.
 </aside>
 
 # Query Parameters
@@ -626,9 +627,10 @@ $query_parameters = [
     ],
 ];
 $api_key = YOURAPIKEY;
+$host = YOURDOMAIN;
 
 $httpClient = HttpClient::create([
-    'headers' => ['X-AUTH-API' => $api_key],
+    'headers' => ['X-AUTH-API' => $api_key, 'Referer' => $host],
 ]);
 
 $response = $httpClient->request('GET', 'https://affwebgen.com/api', ['query' => $query_parameters,]);
@@ -984,9 +986,10 @@ $query_parameters = [
     ],
 ];
 $api_key = YOURAPIKEY;
+$host = YOURDOMAIN;
 
 $httpClient = HttpClient::create([
-    'headers' => ['X-AUTH-API' => $api_key],
+    'headers' => ['X-AUTH-API' => $api_key, 'Referer' => $host],
 ]);
 
 $response = $httpClient->request('GET', 'https://affwebgen.com/api', ['query' => $query_parameters,]);
