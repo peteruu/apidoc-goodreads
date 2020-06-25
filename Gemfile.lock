@@ -94,7 +94,7 @@ GEM
       activesupport (>= 3.1)
     parallel (1.10.0)
     public_suffix (2.0.5)
-    rack (2.0.5)
+    rack (2.2.3)
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
@@ -112,7 +112,6 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.4)
       execjs (>= 0.3.0, < 3)
-    wdm (0.1.1)
 
 PLATFORMS
   ruby
@@ -126,7 +125,6 @@ DEPENDENCIES
   nokogiri (~> 1.6.8)
   redcarpet (~> 3.4.0)
   rouge (~> 2.0.5)
-  wdm (>= 0.1.1)
 
 RUBY VERSION
    ruby 2.3.3p222
